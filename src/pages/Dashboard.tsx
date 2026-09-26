@@ -21,8 +21,6 @@ const timeline = [
   },
 ]
 
-const impactOptions = ['Evito ciertos lugares', 'Afecta mis estudios', 'Cambié mi rutina']
-
 const navItems = [
   { label: 'Inicio', icon: 'home', active: true },
   { label: 'Bitácora', icon: 'timeline', active: false },
@@ -115,14 +113,8 @@ export default function Dashboard() {
 
           <div className="relative z-10 mt-2 grid grid-cols-[1.02fr_0.98fr] items-end gap-0">
             <div className="pb-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">
-                Hola, Lucía
-              </p>
-
-              <h1 className="mt-2 text-[30px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#342f5d]">
-                Este es tu espacio.
-              </h1>
-
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">Hola, Lucía</p>
+              <h1 className="mt-2 text-[30px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#342f5d]">Este es tu espacio.</h1>
               <p className="mt-2 max-w-[220px] text-[13px] leading-[1.5] text-[#6f6685]">
                 Tú decides qué registrar, qué compartir y qué paso tomar después.
               </p>
@@ -131,7 +123,6 @@ export default function Dashboard() {
             <div className="relative flex min-h-[150px] items-end justify-start pl-1">
               <div className="absolute bottom-3 right-3 h-24 w-24 rounded-full bg-white/30 blur-[1px]" />
               <div className="absolute bottom-6 right-6 h-16 w-16 rounded-full border border-white/55" />
-
               <img
                 src={mascot}
                 alt="Lumi te acompaña"
@@ -198,45 +189,47 @@ export default function Dashboard() {
               </button>
             </div>
 
-            <div className="relative">
-              <div className="absolute bottom-4 left-[7px] top-4 w-px bg-[#e4dcf0]" />
+            <div>
+              <div className="relative">
+                <div className="absolute bottom-4 left-[7px] top-4 w-px bg-[#e4dcf0]" />
 
-              <div className="space-y-3.5">
-                {timeline.map((event) => {
-                  const dotClass =
-                    event.tone === 'violet'
-                      ? 'bg-[#9884e7]'
-                      : event.tone === 'amber'
-                        ? 'bg-[#e7b557]'
-                        : 'bg-[#dd8d96]'
+                <div className="space-y-3.5">
+                  {timeline.map((event) => {
+                    const dotClass =
+                      event.tone === 'violet'
+                        ? 'bg-[#9884e7]'
+                        : event.tone === 'amber'
+                          ? 'bg-[#e7b557]'
+                          : 'bg-[#dd8d96]'
 
-                  const iconClass =
-                    event.tone === 'violet'
-                      ? 'bg-[#eeeaff] text-[#7a65cd]'
-                      : event.tone === 'amber'
-                        ? 'bg-[#fff3dc] text-[#c58b2a]'
-                        : 'bg-[#fdebec] text-[#c97079]'
+                    const iconClass =
+                      event.tone === 'violet'
+                        ? 'bg-[#eeeaff] text-[#7a65cd]'
+                        : event.tone === 'amber'
+                          ? 'bg-[#fff3dc] text-[#c58b2a]'
+                          : 'bg-[#fdebec] text-[#c97079]'
 
-                  return (
-                    <div key={event.title} className="relative grid grid-cols-[14px_36px_1fr_auto] items-center gap-3">
-                      <span className={`relative z-10 h-3.5 w-3.5 rounded-full ring-[5px] ring-[#fffdfb] ${dotClass}`} />
+                    return (
+                      <div key={event.title} className="relative grid grid-cols-[14px_36px_1fr_auto] items-center gap-3">
+                        <span className={`relative z-10 h-3.5 w-3.5 rounded-full ring-[5px] ring-[#fffdfb] ${dotClass}`} />
 
-                      <div className={`flex h-9 w-9 items-center justify-center rounded-full ${iconClass}`}>
-                        <TimelineIcon tone={event.tone} />
+                        <div className={`flex h-9 w-9 items-center justify-center rounded-full ${iconClass}`}>
+                          <TimelineIcon tone={event.tone} />
+                        </div>
+
+                        <div className="min-w-0 py-0.5">
+                          <p className="text-[13px] font-bold leading-4 text-[#393449]">{event.title}</p>
+                          <p className="mt-0.5 text-[10.5px] leading-4 text-[#817a88]">{event.detail}</p>
+                        </div>
+
+                        <div className="self-start pt-0.5 text-right">
+                          <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#9f99a7]">{event.time.split(' · ')[0]}</p>
+                          <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#b0aab6]">{event.time.split(' · ')[1]}</p>
+                        </div>
                       </div>
-
-                      <div className="min-w-0 py-0.5">
-                        <p className="text-[13px] font-bold leading-4 text-[#393449]">{event.title}</p>
-                        <p className="mt-0.5 text-[10.5px] leading-4 text-[#817a88]">{event.detail}</p>
-                      </div>
-
-                      <div className="self-start pt-0.5 text-right">
-                        <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#9f99a7]">{event.time.split(' · ')[0]}</p>
-                        <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#b0aab6]">{event.time.split(' · ')[1]}</p>
-                      </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
               </div>
 
               <button
@@ -252,37 +245,39 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section className="relative overflow-hidden rounded-[28px] bg-[#fff8eb] p-[18px] ring-1 ring-[#f4ead7]">
-            <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/45" />
-            <div className="relative z-10 flex items-start gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff0cb] text-[#9a7422]">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M12 3v2M12 19v2M4.2 7.5 6 8.6M18 15.4l1.8 1.1M4.2 16.5 6 15.4M18 8.6l1.8-1.1" />
-                  <circle cx="12" cy="12" r="4.2" />
+          <section className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#fff9eb_0%,#fff4d8_100%)] p-[18px] shadow-[0_16px_34px_-30px_rgba(167,125,39,0.42)]">
+            <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/45" />
+            <div className="absolute right-9 top-7 text-[10px] text-[#d8ae4c]">✦</div>
+
+            <div className="relative z-10 flex items-start gap-3.5">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/75 text-[#a87820] shadow-[0_8px_18px_-14px_rgba(132,96,24,0.45)]">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7">
+                  <path d="M12 3.5v2M12 18.5v2M4.6 7.3l1.7 1M17.7 15.7l1.7 1M4.6 16.7l1.7-1M17.7 8.3l1.7-1" />
+                  <circle cx="12" cy="12" r="4.1" />
                 </svg>
               </div>
 
-              <div className="min-w-0 flex-1">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9a8056]">Check-in de impacto</p>
-                <h2 className="mt-1 text-[16px] font-extrabold leading-5 text-[#3d3748]">¿Qué está empezando a cambiar en tu vida?</h2>
-                <p className="mt-1 text-[11px] leading-4 text-[#746e77]">Puedes marcar solo lo que quieras compartir.</p>
+              <div className="min-w-0 flex-1 pr-3">
+                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#9b7a3d]">Check-in de impacto</p>
+                <h2 className="mt-1.5 text-[17px] font-extrabold leading-[1.18] tracking-[-0.025em] text-[#3d3546]">
+                  ¿Qué está empezando a cambiar en tu vida?
+                </h2>
+                <p className="mt-2 text-[11px] leading-[1.5] text-[#746b70]">
+                  Registra cambios en tu rutina, estudios, trabajo o sensación de seguridad. Puedes contar solo lo que quieras compartir.
+                </p>
               </div>
             </div>
 
-            <div className="relative z-10 mt-4 flex flex-wrap gap-2">
-              {impactOptions.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-medium text-[#6e6677] ring-1 ring-[#eee2cf] transition hover:bg-white"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
+            <button
+              type="button"
+              className="relative z-10 mt-4 flex w-full items-center justify-between rounded-[20px] bg-white/80 px-4 py-3 text-left shadow-[0_10px_22px_-18px_rgba(126,91,28,0.38)] transition hover:bg-white"
+            >
+              <div>
+                <p className="text-[12px] font-bold text-[#4a4050]">Hacer check-in</p>
+                <p className="mt-0.5 text-[9.5px] text-[#8d8185]">Solo tú decides qué registrar</p>
+              </div>
 
-            <button type="button" className="relative z-10 mt-4 inline-flex items-center gap-1 text-[11px] font-bold text-[#785d20]">
-              Hacer check-in <span aria-hidden="true">→</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fff0c8] text-[18px] font-medium text-[#9d7425]">›</span>
             </button>
           </section>
 
@@ -307,9 +302,7 @@ export default function Dashboard() {
                 <p className="text-[10px] text-[#8a8393]">Contacto de confianza</p>
               </div>
 
-              <button type="button" className="rounded-full bg-[#ece5ff] px-3 py-1.5 text-[10px] font-bold text-[#624cb1]">
-                Ver opciones
-              </button>
+              <button type="button" className="rounded-full bg-[#ece5ff] px-3 py-1.5 text-[10px] font-bold text-[#624cb1]">Ver opciones</button>
             </div>
           </section>
 
