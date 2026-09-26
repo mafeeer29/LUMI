@@ -92,7 +92,7 @@ export default function ImpactCheckin() {
       </div>
 
       <div className="mb-5 ml-16 max-w-[82%] rounded-[22px] rounded-bl-md bg-white px-4 py-3 text-sm leading-6 text-[#625b6e] shadow-sm ring-1 ring-[#eee8f5]">
-        ¿Has notado alguno de estos cambios últimamente? Puedes marcar más de uno o decir que por ahora no ha cambiado nada.
+        Marca lo que se parezca a lo que estás viviendo y, si quieres, cuéntame algo más con tus propias palabras. Cuando termines, te respondo.
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -117,15 +117,6 @@ export default function ImpactCheckin() {
             )
           })}
         </div>
-
-        {changes.length > 0 && !saved && (
-          <div className="mt-5 flex items-end gap-3">
-            <img src={lumiMascot} alt="Lumi" className="h-11 w-11 shrink-0 object-contain" />
-            <div className="max-w-[82%] rounded-[20px] rounded-bl-md bg-[#eee8ff] px-4 py-3 text-sm leading-5 text-[#514873]">
-              Gracias por contármelo. Si quieres, también puedes escribirme un poco más con tus propias palabras.
-            </div>
-          </div>
-        )}
 
         <div className="mt-5 rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-[#eee8f5]">
           <p className="text-sm font-bold text-[#4d465c]">Si quieres, puedes contarme un poco más.</p>
