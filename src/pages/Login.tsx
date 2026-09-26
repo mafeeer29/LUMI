@@ -26,6 +26,10 @@ export default function Login() {
           <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em]">Inicia sesión</h1>
           <p className="mt-3 text-sm leading-6 text-[#716a7c]">Este acceso es solo para el MVP y funciona en este navegador.</p>
 
+          <div className="mt-4 rounded-2xl bg-[#f2edff] p-4 text-xs leading-5 text-[#5e5675]">
+            <strong>Lumi utiliza IA como parte de su análisis.</strong> Al entrar se respetará tu configuración de consentimiento y de cuándo analizar. Si todavía no la configuraste, te llevaremos a ese paso antes de ingresar al dashboard.
+          </div>
+
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <label className="block text-sm font-bold">Correo
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 w-full rounded-2xl border border-[#ddd5eb] px-4 py-3 font-normal outline-none focus:border-[#7665c7]" placeholder="tu@correo.com" />
