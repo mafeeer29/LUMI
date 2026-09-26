@@ -70,35 +70,24 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#fbf9ff] text-[#26324b]">
       <div className="mx-auto min-h-screen w-full max-w-[520px] pb-28">
-        <section className="relative overflow-hidden rounded-b-[34px] bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_48%,#f8f4ff_100%)] px-5 pb-5 pt-5 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.45)]">
-          <div className="absolute -left-10 top-16 h-28 w-28 rounded-full border border-white/50" />
-          <div className="absolute left-[42%] top-10 h-20 w-20 rounded-full border border-white/50" />
-          <div className="absolute -right-14 -top-10 h-40 w-40 rounded-full bg-white/35 blur-[1px]" />
-          <div className="absolute right-10 top-12 text-[#d5ad4a]">✦</div>
-          <div className="absolute right-3 top-24 text-[10px] text-[#e0bc62]">✦</div>
-          <div className="absolute left-[48%] top-[72%] text-[9px] text-[#d8b45a]">✦</div>
+        <section className="relative overflow-hidden rounded-b-[34px] bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_52%,#f8f4ff_100%)] px-5 pb-5 pt-5 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.42)]">
+          <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
+          <div className="absolute -right-16 -top-12 h-40 w-40 rounded-full bg-white/28" />
+          <div className="absolute right-7 top-[92px] text-[11px] text-[#d8b45a]">✦</div>
 
           <header className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-2xl bg-white/65 ring-1 ring-white/80 backdrop-blur-sm">
-                <img src={mascot} alt="Mascota de Lumi" className="h-8 w-auto object-contain" />
-              </div>
-              <div>
-                <p className="text-[18px] font-extrabold tracking-[-0.04em] text-[#4b4381]">Lumi</p>
-                <p className="-mt-0.5 text-[10px] font-medium text-[#7f7698]">Tu espacio seguro</p>
-              </div>
-            </div>
+            <p className="text-[20px] font-extrabold tracking-[-0.045em] text-[#4b4381]">Lumi</p>
 
             <button
               type="button"
               aria-label="Abrir perfil"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/65 text-[#665b85] ring-1 ring-white/80 backdrop-blur-sm"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/45 text-[#6d6487] transition hover:bg-white/65"
             >
               <NavIcon type="profile" />
             </button>
           </header>
 
-          <div className="relative z-10 mt-6 grid grid-cols-[1.05fr_0.95fr] items-end gap-2">
+          <div className="relative z-10 mt-5 grid grid-cols-[1.05fr_0.95fr] items-end gap-2">
             <div className="pb-2">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">Hola, Lucía</p>
               <h1 className="mt-2 text-[27px] font-extrabold leading-[1.03] tracking-[-0.045em] text-[#342f5d]">
@@ -110,8 +99,7 @@ export default function Dashboard() {
             </div>
 
             <div className="relative flex min-h-[150px] items-end justify-end">
-              <div className="absolute bottom-2 right-0 h-28 w-28 rounded-full bg-white/35 blur-[1px]" />
-              <div className="absolute bottom-4 right-2 h-20 w-20 rounded-full border border-white/60" />
+              <div className="absolute bottom-2 right-0 h-28 w-28 rounded-full bg-white/30" />
               <img
                 src={mascot}
                 alt="Lumi te acompaña"
