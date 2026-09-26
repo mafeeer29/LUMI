@@ -9,8 +9,8 @@ app.use(express.json({ limit: "2mb" }));
 
 const ai = new GoogleGenAI({
   vertexai: true,
-  project: process.env.GOOGLE_CLOUD_PROJECT || "wtcideatech2daedicion",
-  location: process.env.GOOGLE_CLOUD_LOCATION || "us-central1",
+  project: "wtcideatech2daedicion",
+  location: "us-central1",
 });
 
 function calcularRiesgo(analisis) {
@@ -283,8 +283,8 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-const PORT = Number(process.env.PORT || 3001);
+const PORT = 3001;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`LUMI AI ejecutándose en puerto ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`LUMI AI ejecutándose en http://localhost:${PORT}`);
 });
