@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppShell from '../components/AppShell'
 import { formatEvidenceSize, saveEvidence } from '../lib/evidenceStore'
+import { analizarConLumi } from '../lib/lumiApi'
 import { addInteraction, getActiveCase, type InteractionType, type LumiAttachmentMeta } from '../lib/lumiStore'
 
 const MAX_FILES = 4
@@ -20,6 +21,7 @@ export default function RegisterInteraction() {
   const [files, setFiles] = useState<File[]>([])
   const [fileError, setFileError] = useState('')
   const [saving, setSaving] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
 
   if (!activeCase) {
     return (
@@ -61,6 +63,9 @@ export default function RegisterInteraction() {
     event.preventDefault()
     setSaving(true)
     setFileError('')
+    setStatusMessage('Guardando evidencia...')
+
+    const cleanDescription = description.trim() || 'Interacción registrada.'
 
     try {
       const attachments: LumiAttachmentMeta[] = []
@@ -68,20 +73,31 @@ export default function RegisterInteraction() {
         attachments.push(await saveEvidence(file))
       }
 
+      let analysis
+      try {
+        setStatusMessage('Lumi está analizando las señales...')
+        analysis = await analizarConLumi(cleanDescription)
+      } catch {
+        setStatusMessage('No se pudo completar el análisis IA. Guardaremos el registro igualmente.')
+      }
+
       addInteraction({
         caseId: activeCase.id,
         type,
         channel: channel.trim(),
-        description: description.trim() || 'Interacción registrada.',
+        description: cleanDescription,
         occurredAt: new Date(occurredAt).toISOString(),
         attempts: Math.max(1, attempts),
         fromNewAccount,
         intimidatingLanguage,
         attachments,
+        analysis,
       })
+
       navigate('/app/caso')
     } catch {
       setFileError('No pudimos guardar los adjuntos. Intenta nuevamente o registra la interacción sin archivos.')
+      setStatusMessage('')
       setSaving(false)
     }
   }
@@ -169,8 +185,10 @@ export default function RegisterInteraction() {
           </label>
         </div>
 
+        {statusMessage && <p className="rounded-2xl bg-[#f2edff] p-3 text-center text-xs font-semibold text-[#6655b6]">{statusMessage}</p>}
+
         <button disabled={saving} className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white disabled:opacity-60">
-          {saving ? 'Guardando...' : 'Guardar interacción'}
+          {saving ? 'Guardando y analizando...' : 'Guardar interacción'}
         </button>
       </form>
     </AppShell>
