@@ -245,40 +245,29 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#fff9eb_0%,#fff4d8_100%)] p-[18px] shadow-[0_16px_34px_-30px_rgba(167,125,39,0.42)]">
-            <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/45" />
-            <div className="absolute right-9 top-7 text-[10px] text-[#d8ae4c]">✦</div>
+          <section className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#fff9ed_0%,#fff3d5_100%)] px-[18px] py-[17px] shadow-[0_14px_30px_-28px_rgba(161,118,34,0.36)]">
+            <div className="absolute -right-8 -top-12 h-28 w-28 rounded-full bg-white/36" />
+            <div className="absolute right-6 top-5 text-[10px] text-[#d3a746]">✦</div>
 
-            <div className="relative z-10 flex items-start gap-3.5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[18px] bg-white/75 text-[#a87820] shadow-[0_8px_18px_-14px_rgba(132,96,24,0.45)]">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7">
-                  <path d="M12 3.5v2M12 18.5v2M4.6 7.3l1.7 1M17.7 15.7l1.7 1M4.6 16.7l1.7-1M17.7 8.3l1.7-1" />
-                  <circle cx="12" cy="12" r="4.1" />
-                </svg>
-              </div>
+            <div className="relative z-10">
+              <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#9a7a3b]">Check-in de impacto</p>
 
-              <div className="min-w-0 flex-1 pr-3">
-                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#9b7a3d]">Check-in de impacto</p>
-                <h2 className="mt-1.5 text-[17px] font-extrabold leading-[1.18] tracking-[-0.025em] text-[#3d3546]">
-                  ¿Qué está empezando a cambiar en tu vida?
-                </h2>
-                <p className="mt-2 text-[11px] leading-[1.5] text-[#746b70]">
-                  Registra cambios en tu rutina, estudios, trabajo o sensación de seguridad. Puedes contar solo lo que quieras compartir.
-                </p>
-              </div>
+              <h2 className="mt-2 max-w-[290px] text-[18px] font-extrabold leading-[1.18] tracking-[-0.03em] text-[#3d3547]">
+                ¿Qué está empezando a cambiar en tu vida?
+              </h2>
+
+              <p className="mt-2 max-w-[300px] text-[11px] leading-[1.5] text-[#756c70]">
+                Rutina, estudios, trabajo o seguridad. Tú decides qué contar.
+              </p>
+
+              <button
+                type="button"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#f2dfaa]/70 px-3.5 py-2 text-[11px] font-bold text-[#70551f] transition hover:bg-[#ecd58d]"
+              >
+                Hacer check-in
+                <span aria-hidden="true" className="text-sm font-medium">→</span>
+              </button>
             </div>
-
-            <button
-              type="button"
-              className="relative z-10 mt-4 flex w-full items-center justify-between rounded-[20px] bg-white/80 px-4 py-3 text-left shadow-[0_10px_22px_-18px_rgba(126,91,28,0.38)] transition hover:bg-white"
-            >
-              <div>
-                <p className="text-[12px] font-bold text-[#4a4050]">Hacer check-in</p>
-                <p className="mt-0.5 text-[9.5px] text-[#8d8185]">Solo tú decides qué registrar</p>
-              </div>
-
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#fff0c8] text-[18px] font-medium text-[#9d7425]">›</span>
-            </button>
           </section>
 
           <section className="rounded-[28px] bg-[#f1edff] p-[18px]">
