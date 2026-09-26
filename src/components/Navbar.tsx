@@ -30,13 +30,13 @@ export function Navbar() {
 
         <div className="flex items-center gap-2.5">
           <Link
-            to="/app"
+            to="/login"
             className="hidden rounded-full border border-[#d8d0ec] bg-white/55 px-5 py-2.5 text-[12px] font-semibold text-[#51496a] shadow-sm backdrop-blur-md transition hover:bg-white sm:inline-flex"
           >
             Iniciar sesión
           </Link>
           <Link
-            to="/app"
+            to="/registro"
             className="inline-flex rounded-full bg-[linear-gradient(90deg,#7564d8,#5e50bf)] px-5 py-2.5 text-[12px] font-semibold text-white shadow-[0_10px_26px_-14px_rgba(94,80,191,0.75)] transition hover:brightness-105"
           >
             Comenzar
