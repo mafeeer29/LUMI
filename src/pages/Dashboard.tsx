@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import mascot from '../assets/lumi-mascot.png'
+import BottomNav from '../components/BottomNav'
+import { getLocalUser } from '../lib/accountStore'
 import {
   getActiveCase,
   getCaseCheckins,
@@ -19,6 +21,9 @@ function formatDate(date: string) {
 }
 
 export default function Dashboard() {
+  const user = getLocalUser()
+  const firstName = user?.name?.trim().split(/\s+/)[0] || 'Lucía'
+
   const data = useMemo(() => {
     seedDemoCase()
     const activeCase = getActiveCase()
@@ -36,7 +41,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#fbf9ff] text-[#26324b]">
-      <div className="mx-auto min-h-screen w-full max-w-[520px] pb-24">
+      <div className="mx-auto min-h-screen w-full max-w-[520px] pb-28">
         <section className="relative overflow-hidden bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_48%,#f8f4ff_100%)] px-5 pb-6 pt-3 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.45)]">
           <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
           <div className="absolute -right-16 -top-12 h-40 w-40 rounded-full bg-white/28" />
@@ -44,12 +49,12 @@ export default function Dashboard() {
 
           <header className="relative z-10 flex items-center justify-between">
             <p className="text-[20px] font-extrabold tracking-[-0.045em] text-[#4b4381]">Lumi</p>
-            <Link to="/app/apoyo" className="flex h-8 w-8 items-center justify-center rounded-full bg-white/45 text-[#6d6487]">♡</Link>
+            <Link to="/app/perfil/privacidad-ia" className="flex h-8 w-8 items-center justify-center rounded-full bg-white/45 text-[#6d6487]" aria-label="Perfil y privacidad">⚙</Link>
           </header>
 
           <div className="relative z-10 mt-2 grid grid-cols-[1.02fr_0.98fr] items-end gap-0">
             <div className="pb-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">Hola, Lucía</p>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">Hola, {firstName}</p>
               <h1 className="mt-2 text-[30px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#342f5d]">Este es tu espacio.</h1>
               <p className="mt-2 max-w-[220px] text-[13px] leading-[1.5] text-[#6f6685]">Tú decides qué registrar, qué compartir y qué paso tomar después.</p>
             </div>
@@ -134,16 +139,8 @@ export default function Dashboard() {
 
           <Link to="/app/nuevo-caso" className="block w-full rounded-[20px] border border-dashed border-[#d8cdef] bg-white/65 px-4 py-3 text-center text-[12px] font-bold text-[#675c7e]">+ Crear nuevo caso</Link>
         </main>
-
-        <nav className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-[520px] border-t border-[#eee8f5] bg-[#fffdfd]/95 px-3 pb-[max(10px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl">
-          <div className="flex items-center justify-around text-[10px] font-semibold">
-            <Link to="/app" className="px-3 py-2 text-[#654fc0]">Inicio</Link>
-            <Link to="/app/bitacora" className="px-3 py-2 text-[#9a94a6]">Bitácora</Link>
-            <Link to="/app/apoyo" className="px-3 py-2 text-[#9a94a6]">Apoyo</Link>
-            <Link to="/app/caso" className="px-3 py-2 text-[#9a94a6]">Caso</Link>
-          </div>
-        </nav>
       </div>
+      <BottomNav />
     </div>
   )
 }
