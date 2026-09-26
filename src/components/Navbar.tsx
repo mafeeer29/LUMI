@@ -1,39 +1,45 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/lumi-logo.png'
 
 const navItems = [
   { label: 'Cómo funciona', href: '#how-it-works' },
   { label: 'Recursos', href: '#resources' },
-  { label: 'Sobre Lumi', href: '#about' },
+  { label: 'Nosotras', href: '#about' },
+  { label: 'Preguntas frecuentes', href: '#faq' },
 ]
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#f8f6ff]/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-3" aria-label="Lumi home">
-          <img src={logo} alt="Lumi logo" className="h-10 w-auto" />
-          <span className="text-xl font-semibold tracking-tight text-slate-900">Lumi</span>
+    <header className="absolute inset-x-0 top-0 z-50">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+        <Link to="/" className="flex items-center gap-2" aria-label="Lumi home">
+          <span className="text-[28px] leading-none text-[#e9b34e]">✦</span>
+          <span className="text-2xl font-extrabold tracking-[-0.04em] text-[#302d58]">Lumi</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-violet-700"
+              className="text-[13px] font-semibold text-[#615a77] transition hover:text-[#6454c5]"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <Link
             to="/app"
-            className="inline-flex items-center justify-center rounded-full bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-violet-600/20 transition hover:bg-violet-500"
+            className="hidden rounded-full border border-[#d8d0ec] bg-white/55 px-5 py-2.5 text-[12px] font-semibold text-[#51496a] shadow-sm backdrop-blur-md transition hover:bg-white sm:inline-flex"
           >
-            Comenzar gratis
+            Iniciar sesión
+          </Link>
+          <Link
+            to="/app"
+            className="inline-flex rounded-full bg-[linear-gradient(90deg,#7564d8,#5e50bf)] px-5 py-2.5 text-[12px] font-semibold text-white shadow-[0_10px_26px_-14px_rgba(94,80,191,0.75)] transition hover:brightness-105"
+          >
+            Comenzar
           </Link>
         </div>
       </div>
