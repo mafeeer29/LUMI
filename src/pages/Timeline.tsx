@@ -1,27 +1,39 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import AppShell from '../components/AppShell'
-import { getActiveCase, getCaseCheckins, getCaseInteractions } from '../lib/lumiStore'
+import EvidencePreview from '../components/EvidencePreview'
+import { getActiveCase, getCaseCheckins, getCaseInteractions, type LumiAttachmentMeta } from '../lib/lumiStore'
+
+type TimelineEntry = {
+  id: string
+  title: string
+  detail: string
+  date: string
+  kind: string
+  attachments?: LumiAttachmentMeta[]
+}
 
 export default function Timeline() {
   const entries = useMemo(() => {
     const activeCase = getActiveCase()
-    if (!activeCase) return { activeCase: null, entries: [] as Array<{ id: string; title: string; detail: string; date: string; kind: string }> }
+    if (!activeCase) return { activeCase: null, entries: [] as TimelineEntry[] }
 
-    const interactions = getCaseInteractions(activeCase.id).map((item) => ({
+    const interactions: TimelineEntry[] = getCaseInteractions(activeCase.id).map((item) => ({
       id: item.id,
       title: item.description,
       detail: `${item.channel}${item.attempts > 1 ? ` · ${item.attempts} intentos` : ''}`,
       date: item.occurredAt,
       kind: 'Interacción',
+      attachments: item.attachments ?? [],
     }))
 
-    const checkins = getCaseCheckins(activeCase.id).map((item) => ({
+    const checkins: TimelineEntry[] = getCaseCheckins(activeCase.id).map((item) => ({
       id: item.id,
       title: 'Check-in de impacto',
       detail: item.changes.length ? item.changes.join(' · ') : 'Sin cambios seleccionados',
       date: item.createdAt,
       kind: 'Impacto',
+      attachments: [],
     }))
 
     return {
@@ -46,7 +58,7 @@ export default function Timeline() {
             <article key={`${entry.kind}-${entry.id}`} className="relative rounded-[22px] bg-white p-4 shadow-sm">
               <span className="absolute -left-[19px] top-5 h-3 w-3 rounded-full bg-[#8d78df] ring-4 ring-[#fbf9ff]" />
               <div className="flex items-start justify-between gap-4">
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#9187a6]">{entry.kind}</p>
                   <h2 className="mt-1 text-sm font-extrabold text-[#383348]">{entry.title}</h2>
                   <p className="mt-1 text-xs leading-5 text-[#7c7685]">{entry.detail}</p>
@@ -56,6 +68,19 @@ export default function Timeline() {
                   {new Date(entry.date).toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}
                 </time>
               </div>
+
+              {entry.attachments && entry.attachments.length > 0 && (
+                <div className="mt-3">
+                  <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[#9187a6]">
+                    Evidencia adjunta · {entry.attachments.length}
+                  </p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {entry.attachments.map((attachment) => (
+                      <EvidencePreview key={attachment.id} attachment={attachment} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </article>
           ))}
         </div>
