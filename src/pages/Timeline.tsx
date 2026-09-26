@@ -44,9 +44,16 @@ export default function Timeline() {
 
   return (
     <AppShell title="Tu bitácora">
-      <p className="-mt-2 mb-6 text-sm leading-6 text-[#716a7c]">
+      <p className="-mt-2 mb-4 text-sm leading-6 text-[#716a7c]">
         Registro cronológico de la información que tú decidiste guardar. No equivale por sí solo a evidencia legal certificada.
       </p>
+
+      {entries.activeCase && (
+        <Link to="/app/expediente" className="mb-6 flex items-center justify-between rounded-[24px] bg-[#eee8ff] px-4 py-4 text-sm font-extrabold text-[#514873]">
+          <span>📄 Generar expediente digital</span>
+          <span aria-hidden="true">→</span>
+        </Link>
+      )}
 
       {!entries.activeCase ? (
         <p className="text-sm text-[#716a7c]">Todavía no tienes un caso activo.</p>
