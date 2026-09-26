@@ -1,75 +1,178 @@
-# React + TypeScript + Vite
+# LUMI 🌙
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**LUMI** es un prototipo de intervención temprana que ayuda a organizar señales relacionadas con posibles situaciones de acoso digital, registrar evidencia, observar su evolución y preparar información para solicitar apoyo de manera informada.
 
-Currently, two official plugins are available:
+> LUMI identifica y organiza señales observables. No determina culpabilidad, no realiza diagnósticos psicológicos y no reemplaza la evaluación de profesionales de psicología, derecho u otras áreas especializadas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ ¿Qué problema aborda?
 
-## React Compiler
+Las situaciones de acoso digital pueden aparecer como eventos aislados en distintos canales: mensajes insistentes, amenazas, control, humillación, suplantación, difusión de información o cambios progresivos en la conducta de la persona afectada.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+LUMI busca reunir estas señales en un solo espacio para facilitar su seguimiento y permitir que la persona tenga mayor claridad sobre lo que está ocurriendo y sobre la información que desea conservar o compartir.
 
-## Expanding the ESLint configuration
+## 🧩 Funcionalidades del MVP
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Registro, inicio de sesión y sesión local para el prototipo.
+- Consentimiento informado antes de utilizar el análisis con IA.
+- Creación y seguimiento de casos.
+- Registro cronológico de interacciones.
+- Adjuntos y evidencia asociada a cada registro.
+- Análisis de texto con Gemini mediante Vertex AI.
+- Identificación de señales observables como insistencia, control, amenazas, humillación, stalking digital, sextorsión, doxing, suplantación y otras.
+- Detección de recurrencia y posibles señales de escalamiento cuando están explícitamente presentes en el relato.
+- Check-in de impacto en estudios, trabajo, rutinas, relaciones y percepción de seguridad.
+- Nivel de atención calculado mediante reglas determinísticas y explicables.
+- Línea de tiempo del caso.
+- Generación de un expediente digital organizado para impresión o guardado como PDF.
+- Configuración de contactos de confianza y selección de la información que la persona desea preparar para compartir.
+- Configuración de privacidad y preferencias relacionadas con el uso de IA.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🤖 ¿Cómo utiliza IA?
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+LUMI utiliza **Gemini 2.5 Flash a través de Vertex AI** para extraer señales observables del texto ingresado por la persona.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+La IA no decide por sí sola el nivel de atención. El flujo combina:
 
+1. **Extracción semántica con Gemini**: identifica conductas, recurrencia, impacto reportado y posibles señales de escalamiento sin inventar información no mencionada.
+2. **Reglas determinísticas**: asignan pesos a las señales detectadas y calculan un nivel de atención (`bajo`, `moderado` o `alto`).
+3. **Explicabilidad**: el sistema muestra las señales encontradas, las razones consideradas y una recomendación general de siguiente paso.
+
+El audio puede registrarse como evidencia dentro del MVP, pero no es analizado automáticamente por la IA.
+
+## 🧪 Evaluación del módulo de IA
+
+Para evaluar el comportamiento del análisis se preparó un script de evaluación utilizando muestras etiquetadas del **CorpusBullying**, con textos en español y clasificación binaria.
+
+El dataset se utiliza para **evaluar el comportamiento del modelo y del prompting**, no para entrenar ni realizar fine-tuning de Gemini.
+
+El script permite calcular métricas como:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Verdaderos positivos / negativos
+- Falsos positivos / negativos
+
+Archivo de evaluación:
+
+```text
+server/evaluateDataset.mjs
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Stack tecnológico
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Frontend
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
 
+### Backend e IA
+
+- Node.js
+- Express
+- Google Gen AI SDK
+- Vertex AI
+- Gemini 2.5 Flash
+
+### Persistencia del MVP
+
+El prototipo utiliza almacenamiento local del navegador (`localStorage`) para mantener la sesión y los datos del MVP. No debe considerarse una arquitectura de persistencia final para producción.
+
+## 📁 Estructura principal
+
+```text
+LUMI/
+├── server/
+│   ├── api.mjs
+│   ├── evaluateDataset.mjs
+│   └── testGemini.mjs
+├── src/
+│   ├── components/
+│   ├── lib/
+│   ├── pages/
+│   └── App.tsx
+├── public/
+└── package.json
 ```
+
+## 🚀 Ejecución local
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/mafeeer29/LUMI.git
+cd LUMI
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Autenticarse para Vertex AI
+
+El backend utiliza **Application Default Credentials (ADC)** de Google Cloud para acceder a Vertex AI. La cuenta utilizada debe tener acceso al proyecto configurado para el prototipo.
+
+```bash
+gcloud auth application-default login
+```
+
+### 4. Ejecutar el backend
+
+```bash
+node server/api.mjs
+```
+
+La API local queda disponible en:
+
+```text
+http://localhost:3001
+```
+
+Puedes verificarla en:
+
+```text
+http://localhost:3001/api/health
+```
+
+### 5. Ejecutar el frontend
+
+En otra terminal:
+
+```bash
+npm run dev
+```
+
+Vite mostrará la URL local del frontend, normalmente:
+
+```text
+http://localhost:5173
+```
+
+## 🔐 Privacidad y uso responsable
+
+LUMI fue diseñado bajo un enfoque de control por parte de la persona usuaria:
+
+- el análisis con IA requiere autorización;
+- no se realizan envíos automáticos a contactos de confianza;
+- la persona decide qué información desea conservar y preparar para compartir;
+- el sistema evita conclusiones legales, diagnósticos o afirmaciones definitivas sobre una situación;
+- las recomendaciones tienen carácter orientativo.
+
+## ⚠️ Estado del proyecto
+
+LUMI es actualmente un **MVP / prototipo funcional**. La autenticación, persistencia local, gestión de evidencia y mecanismos de seguridad todavía requieren una arquitectura de producción antes de utilizarse con información sensible real.
+
+## 👩‍💻 Autora
+
+**María Fernanda Evangelista Aguedo**  
+Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+
+---
+
+Si estás revisando este repositorio como parte de una demo, comienza por `src/pages/RegisterInteraction.tsx`, `src/pages/CaseDetail.tsx`, `src/pages/ImpactCheckin.tsx`, `src/pages/Timeline.tsx` y `server/api.mjs` para seguir el flujo principal de LUMI.
