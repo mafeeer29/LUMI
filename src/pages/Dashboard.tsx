@@ -1,101 +1,113 @@
 import { Link } from 'react-router-dom'
+import mascot from '../assets/lumi-mascot.png'
 
-const summaryCards = [
-  { label: 'Señales', value: '7', accent: 'violet' },
-  { label: 'Reflexiones', value: '12', accent: 'sky' },
-  { label: 'Apoyo', value: '3', accent: 'emerald' },
-]
-
-const quickActions = [
-  'Registrar una experiencia',
-  'Revisar patrones recientes',
-  'Ver recursos de apoyo',
+const navItems = [
+  { label: 'Inicio', active: true },
+  { label: 'Bitácora', active: false },
+  { label: 'Apoyo', active: false },
+  { label: 'Perfil', active: false },
 ]
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <header className="flex items-center justify-between rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg shadow-slate-950/20 backdrop-blur">
-          <div>
-            <p className="text-sm text-slate-400">Panel de bienestar</p>
-            <h1 className="text-2xl font-bold text-white">Lumi</h1>
-          </div>
+    <div className="min-h-screen bg-[#f8f5f0] px-3 py-4 text-[#1f2a44] sm:px-5 lg:flex lg:items-center lg:justify-center lg:py-10">
+      <div className="mx-auto w-full max-w-[430px] rounded-[32px] border border-[#eadff7] bg-[#fffdfb] shadow-[0_24px_60px_-32px_rgba(129,96,183,0.55)] lg:max-w-[980px] lg:px-4 lg:py-5">
+        <div className="rounded-[28px] bg-[#f6f1ff] p-4 shadow-inner shadow-violet-100/60 lg:p-6">
+          <header className="flex items-center justify-between pb-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7a6f93]">Lumi</p>
+              <h1 className="mt-1 text-[2rem] font-black leading-none text-[#1f2a44]">Hola, Lucía</h1>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <Link to="/" className="rounded-full border border-slate-700 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-violet-400 hover:text-white">
-              Volver a inicio
+            <Link
+              to="/"
+              className="rounded-full border border-violet-200 bg-white px-3 py-2 text-xs font-semibold text-[#3a3f5d] transition hover:border-violet-300 hover:text-violet-700"
+            >
+              Inicio
             </Link>
+          </header>
+
+          <div className="mb-4 flex items-center gap-3 rounded-[24px] border border-[#efe2ff] bg-white/90 px-3 py-3 shadow-sm shadow-violet-100/30">
+            <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-[#f2ebff]">
+              <img src={mascot} alt="Lumi mascot" className="h-10 w-auto object-contain" />
+            </div>
+            <p className="text-sm leading-5 text-[#42506d]">
+              Este es tu espacio. Tú decides qué registrar y qué pasos tomar.
+            </p>
           </div>
-        </header>
 
-        <main className="mt-8 space-y-8">
-          <section className="grid gap-4 md:grid-cols-3">
-            {summaryCards.map((card) => (
-              <div key={card.label} className="rounded-3xl border border-slate-800 bg-slate-900 p-5 shadow-xl shadow-slate-950/25">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm text-slate-400">{card.label}</p>
-                  <span
-                    className={`h-3 w-3 rounded-full ${
-                      card.accent === 'violet'
-                        ? 'bg-violet-400'
-                        : card.accent === 'sky'
-                          ? 'bg-sky-400'
-                          : 'bg-emerald-400'
-                    }`}
-                  />
-                </div>
-                <p className="mt-5 text-4xl font-black text-white">{card.value}</p>
-              </div>
-            ))}
-          </section>
-
-          <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-              <div className="flex items-center justify-between">
+          <main className="space-y-4">
+            <section className="rounded-[28px] bg-white p-4 shadow-[0_18px_30px_-24px_rgba(90,74,121,0.35)]">
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.2em] text-violet-300">Resumen</p>
-                  <h2 className="mt-2 text-2xl font-bold text-white">¿Qué te está pasando?</h2>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8b7ca3]">Tus casos</p>
+                  <h2 className="mt-1 text-lg font-bold text-[#1f2a44]">Situación con compañero de universidad</h2>
                 </div>
-                <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs font-medium text-violet-200">
-                  En revisión
+                <span className="rounded-full bg-[#f9e8b5] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7a5f18]">
+                  Requiere atención
                 </span>
               </div>
 
-              <div className="mt-6 space-y-4">
-                <div className="rounded-2xl border border-slate-700 bg-slate-800 p-4">
-                  <p className="text-sm text-slate-400">Última nota</p>
-                  <p className="mt-2 text-base leading-7 text-slate-200">
-                    Has detectado cambios en la forma en que te hablan online y cómo te afectan emocionalmente. Es una señal de alerta que vale la pena acompañar con cuidado.
-                  </p>
+              <div className="mt-4 space-y-3 rounded-[22px] bg-[#f9f5ff] p-3">
+                <div className="flex items-center justify-between text-xs text-[#53607a]">
+                  <span>Última actualización</span>
+                  <span className="font-medium text-[#1f2a44]">Hoy · 19:20</span>
                 </div>
 
-                <div className="rounded-2xl border border-slate-700 bg-slate-800 p-4">
-                  <p className="text-sm text-slate-400">Sugerencia</p>
-                  <p className="mt-2 text-base leading-7 text-slate-200">
-                    Toma un respiro, guarda evidencia y revisa tus recursos de apoyo en esta misma sesión.
-                  </p>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2">
+                  <div className="rounded-2xl border border-[#e9ddff] bg-white px-3 py-2.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7a6f93]">Conducta</p>
+                    <p className="mt-1 text-sm font-semibold text-[#1f2a44]">Atención elevada</p>
+                  </div>
+                  <div className="rounded-2xl border border-[#f6dfc0] bg-white px-3 py-2.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8d7140]">Impacto</p>
+                    <p className="mt-1 text-sm font-semibold text-[#1f2a44]">Impacto creciente</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-              <p className="text-sm uppercase tracking-[0.2em] text-violet-300">Acciones rápidas</p>
-              <div className="mt-6 space-y-3">
-                {quickActions.map((action, index) => (
-                  <button
-                    key={action}
-                    type="button"
-                    className="flex w-full items-center justify-between rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-left text-sm font-medium text-slate-100 transition hover:border-violet-500 hover:bg-slate-800/90"
-                  >
-                    <span>{action}</span>
-                    <span className="text-violet-300">0{index + 1}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
-        </main>
+            <section className="flex flex-col gap-3 sm:flex-row lg:gap-4">
+              <button
+                type="button"
+                className="flex-1 rounded-full bg-[#7b5de6] px-4 py-3.5 text-sm font-semibold text-white shadow-[0_12px_25px_-12px_rgba(123,93,230,0.8)] transition hover:bg-[#6f52d8]"
+              >
+                Registrar nueva interacción
+              </button>
+              <button
+                type="button"
+                className="rounded-full border border-[#d8c9f9] bg-white px-4 py-3.5 text-sm font-semibold text-[#3a3f5d] transition hover:border-violet-300 hover:text-violet-700"
+              >
+                + Crear nuevo caso
+              </button>
+            </section>
+
+            <section className="rounded-[28px] bg-[#fffaf2] p-4 text-[#1f2a44] shadow-[0_18px_30px_-24px_rgba(90,74,121,0.25)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8d7140]">Bitácora</p>
+              <h3 className="mt-2 text-lg font-bold">Tu bitácora está al día</h3>
+              <p className="mt-2 text-sm leading-6 text-[#4f5a73]">
+                Los registros se organizan cronológicamente para que puedas revisarlos con calma y decidir qué seguir anotando.
+              </p>
+            </section>
+          </main>
+        </div>
+
+        <nav className="mt-4 flex items-center justify-around rounded-[24px] border border-[#e8ddf8] bg-white/90 px-2 py-3 shadow-[0_18px_35px_-26px_rgba(91,68,129,0.5)] backdrop-blur-sm lg:mt-6 lg:max-w-[420px] lg:mx-auto">
+          {navItems.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              className={`flex min-w-[70px] flex-col items-center gap-1 rounded-full px-2 py-2 text-[11px] font-medium transition ${
+                item.active
+                  ? 'bg-[#f2ebff] text-[#5d3bc2]'
+                  : 'text-[#66728d] hover:bg-[#f7f3ff] hover:text-[#3a3f5d]'
+              }`}
+            >
+              <span className="text-base">{item.label === 'Inicio' ? '⌂' : item.label === 'Bitácora' ? '✎' : item.label === 'Apoyo' ? '❤' : '◉'}</span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
       </div>
     </div>
   )
