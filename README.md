@@ -99,61 +99,6 @@ LUMI/
 └── package.json
 ```
 
-## 🚀 Ejecución local
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/mafeeer29/LUMI.git
-cd LUMI
-```
-
-### 2. Instalar dependencias
-
-```bash
-npm install
-```
-
-### 3. Autenticarse para Vertex AI
-
-El backend utiliza **Application Default Credentials (ADC)** de Google Cloud para acceder a Vertex AI. La cuenta utilizada debe tener acceso al proyecto configurado para el prototipo.
-
-```bash
-gcloud auth application-default login
-```
-
-### 4. Ejecutar el backend
-
-```bash
-node server/api.mjs
-```
-
-La API local queda disponible en:
-
-```text
-http://localhost:3001
-```
-
-Puedes verificarla en:
-
-```text
-http://localhost:3001/api/health
-```
-
-### 5. Ejecutar el frontend
-
-En otra terminal:
-
-```bash
-npm run dev
-```
-
-Vite mostrará la URL local del frontend, normalmente:
-
-```text
-http://localhost:5173
-```
-
 ## 🔐 Privacidad y uso responsable
 
 LUMI fue diseñado bajo un enfoque de control por parte de la persona usuaria:
@@ -164,14 +109,17 @@ LUMI fue diseñado bajo un enfoque de control por parte de la persona usuaria:
 - el sistema evita conclusiones legales, diagnósticos o afirmaciones definitivas sobre una situación;
 - las recomendaciones tienen carácter orientativo.
 
-## ⚠️ Estado del proyecto
+## 👩‍💻 Autores
 
-LUMI es actualmente un **MVP / prototipo funcional**. La autenticación, persistencia local, gestión de evidencia y mecanismos de seguridad todavía requieren una arquitectura de producción antes de utilizarse con información sensible real.
-
-## 👩‍💻 Autora
-
-**María Fernanda Evangelista Aguedo**  
+**- Maria Fernanda Evangelista Aguedo**  
 Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+**- Sebastian Alexis Euribe Zambrano**  
+Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+**- Juan Carlos Pizarro Esperta**  
+Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+**- Gabriela Fernanda Peñaranda Reyes**  
+Ingeniería de Ciberseguridad — Universidad Nacional de Ingeniería, Perú
+
 
 ---
 
