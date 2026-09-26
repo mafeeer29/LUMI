@@ -1,3 +1,5 @@
+import type { LumiAnalysis } from './lumiApi'
+
 export type CaseContext = 'universidad' | 'trabajo' | 'otro'
 export type InteractionType = 'mensaje' | 'llamada' | 'cuenta_nueva' | 'presencial' | 'otro'
 export type ConductLevel = 'Sin señales suficientes' | 'Atención' | 'Atención elevada'
@@ -21,6 +23,7 @@ export interface LumiInteraction {
   fromNewAccount: boolean
   intimidatingLanguage: boolean
   attachments?: LumiAttachmentMeta[]
+  analysis?: LumiAnalysis
   createdAt: string
 }
 
