@@ -7,6 +7,7 @@ import RegisterInteraction from './pages/RegisterInteraction'
 import ImpactCheckin from './pages/ImpactCheckin'
 import CaseDetail from './pages/CaseDetail'
 import Timeline from './pages/Timeline'
+import DigitalDossier from './pages/DigitalDossier'
 import Support from './pages/Support'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -38,6 +39,7 @@ function App() {
       <Route path="/app/checkin" element={<ProtectedRoute><ImpactCheckin /></ProtectedRoute>} />
       <Route path="/app/caso" element={<ProtectedRoute><CaseDetail /></ProtectedRoute>} />
       <Route path="/app/bitacora" element={<ProtectedRoute><Timeline /></ProtectedRoute>} />
+      <Route path="/app/expediente" element={<ProtectedRoute><DigitalDossier /></ProtectedRoute>} />
       <Route path="/app/apoyo" element={<ProtectedRoute><Support /></ProtectedRoute>} />
       <Route path="/app/perfil/privacidad-ia" element={<ProtectedRoute><PrivacyAI /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
