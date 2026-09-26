@@ -3,6 +3,13 @@ export type InteractionType = 'mensaje' | 'llamada' | 'cuenta_nueva' | 'presenci
 export type ConductLevel = 'Sin señales suficientes' | 'Atención' | 'Atención elevada'
 export type ImpactLevel = 'Sin cambios registrados' | 'Impacto inicial' | 'Impacto creciente'
 
+export interface LumiAttachmentMeta {
+  id: string
+  name: string
+  type: string
+  size: number
+}
+
 export interface LumiInteraction {
   id: string
   caseId: string
@@ -13,6 +20,7 @@ export interface LumiInteraction {
   attempts: number
   fromNewAccount: boolean
   intimidatingLanguage: boolean
+  attachments?: LumiAttachmentMeta[]
   createdAt: string
 }
 
@@ -178,6 +186,7 @@ export function seedDemoCase() {
     attempts: 12,
     fromNewAccount: false,
     intimidatingLanguage: false,
+    attachments: [],
   })
   addInteraction({
     caseId: demo.id,
@@ -188,6 +197,7 @@ export function seedDemoCase() {
     attempts: 8,
     fromNewAccount: false,
     intimidatingLanguage: false,
+    attachments: [],
   })
   addInteraction({
     caseId: demo.id,
@@ -198,6 +208,7 @@ export function seedDemoCase() {
     attempts: 1,
     fromNewAccount: true,
     intimidatingLanguage: false,
+    attachments: [],
   })
   addCheckin({
     caseId: demo.id,
