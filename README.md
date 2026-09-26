@@ -111,15 +111,17 @@ LUMI fue diseñado bajo un enfoque de control por parte de la persona usuaria:
 
 ## 👩‍💻 Autores
 
-**- Maria Fernanda Evangelista Aguedo**  
-Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú;
-**- Sebastian Alexis Euribe Zambrano**  
-Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú;
-**- Juan Carlos Pizarro Esperta**  
-Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú;
-**- Gabriela Fernanda Peñaranda Reyes**  
-Ingeniería de Ciberseguridad — Universidad Nacional de Ingeniería, Perú
+- **Maria Fernanda Evangelista Aguedo**  
+  Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
 
+- **Sebastian Alexis Euribe Zambrano**  
+  Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+
+- **Juan Carlos Pizarro Esperta**  
+  Ingeniería de Telecomunicaciones — Universidad Nacional de Ingeniería, Perú
+
+- **Gabriela Fernanda Peñaranda Reyes**  
+  Ingeniería de Ciberseguridad — Universidad Nacional de Ingeniería, Perú
 
 ---
 
