@@ -1,7 +1,11 @@
-import { FormEvent, useMemo, useState } from 'react'
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppShell from '../components/AppShell'
-import { addInteraction, getActiveCase, type InteractionType } from '../lib/lumiStore'
+import { formatEvidenceSize, saveEvidence } from '../lib/evidenceStore'
+import { addInteraction, getActiveCase, type InteractionType, type LumiAttachmentMeta } from '../lib/lumiStore'
+
+const MAX_FILES = 4
+const MAX_FILE_SIZE = 10 * 1024 * 1024
 
 export default function RegisterInteraction() {
   const navigate = useNavigate()
@@ -13,6 +17,9 @@ export default function RegisterInteraction() {
   const [fromNewAccount, setFromNewAccount] = useState(false)
   const [intimidatingLanguage, setIntimidatingLanguage] = useState(false)
   const [occurredAt, setOccurredAt] = useState(() => new Date().toISOString().slice(0, 16))
+  const [files, setFiles] = useState<File[]>([])
+  const [fileError, setFileError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   if (!activeCase) {
     return (
@@ -23,25 +30,66 @@ export default function RegisterInteraction() {
     )
   }
 
-  function handleSubmit(event: FormEvent) {
+  function handleFiles(event: ChangeEvent<HTMLInputElement>) {
+    const selected = Array.from(event.target.files ?? [])
+    setFileError('')
+
+    const unsupported = selected.find((file) => !file.type.startsWith('image/') && !file.type.startsWith('audio/'))
+    if (unsupported) {
+      setFileError('Por ahora Lumi admite imágenes y audios.')
+      event.target.value = ''
+      return
+    }
+
+    const oversized = selected.find((file) => file.size > MAX_FILE_SIZE)
+    if (oversized) {
+      setFileError(`Cada archivo debe pesar máximo ${formatEvidenceSize(MAX_FILE_SIZE)}.`)
+      event.target.value = ''
+      return
+    }
+
+    if (selected.length > MAX_FILES) {
+      setFileError(`Puedes adjuntar hasta ${MAX_FILES} archivos por interacción.`)
+      event.target.value = ''
+      return
+    }
+
+    setFiles(selected)
+  }
+
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    addInteraction({
-      caseId: activeCase.id,
-      type,
-      channel: channel.trim(),
-      description: description.trim() || 'Interacción registrada.',
-      occurredAt: new Date(occurredAt).toISOString(),
-      attempts: Math.max(1, attempts),
-      fromNewAccount,
-      intimidatingLanguage,
-    })
-    navigate('/app/caso')
+    setSaving(true)
+    setFileError('')
+
+    try {
+      const attachments: LumiAttachmentMeta[] = []
+      for (const file of files) {
+        attachments.push(await saveEvidence(file))
+      }
+
+      addInteraction({
+        caseId: activeCase.id,
+        type,
+        channel: channel.trim(),
+        description: description.trim() || 'Interacción registrada.',
+        occurredAt: new Date(occurredAt).toISOString(),
+        attempts: Math.max(1, attempts),
+        fromNewAccount,
+        intimidatingLanguage,
+        attachments,
+      })
+      navigate('/app/caso')
+    } catch {
+      setFileError('No pudimos guardar los adjuntos. Intenta nuevamente o registra la interacción sin archivos.')
+      setSaving(false)
+    }
   }
 
   return (
     <AppShell title="Registrar interacción">
       <p className="-mt-2 mb-6 text-sm leading-6 text-[#716a7c]">
-        Añade hechos observables. Lumi organiza patrones; no determina culpabilidad ni delitos.
+        Añade hechos observables y, si quieres, adjunta capturas o audios. Lumi organiza patrones; no determina culpabilidad ni delitos.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -76,6 +124,40 @@ export default function RegisterInteraction() {
           <input type="number" min={1} value={attempts} onChange={(e) => setAttempts(Number(e.target.value))} className="w-full rounded-2xl border border-[#ebe5f3] bg-white px-4 py-3 text-sm" />
         </label>
 
+        <div className="rounded-[22px] border border-dashed border-[#d9cfee] bg-[#faf8ff] p-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#81759a]">Evidencia opcional</p>
+              <p className="mt-1 text-xs leading-5 text-[#77707f]">Adjunta capturas o audios. Máximo {MAX_FILES} archivos de hasta 10 MB cada uno.</p>
+            </div>
+            <span className="text-xl" aria-hidden="true">＋</span>
+          </div>
+
+          <label className="mt-3 block cursor-pointer rounded-2xl bg-white px-4 py-3 text-center text-xs font-bold text-[#6655b6] shadow-sm">
+            Seleccionar archivos
+            <input type="file" accept="image/*,audio/*" multiple onChange={handleFiles} className="sr-only" />
+          </label>
+
+          {files.length > 0 && (
+            <div className="mt-3 space-y-2">
+              {files.map((file) => (
+                <div key={`${file.name}-${file.size}`} className="flex items-center justify-between gap-3 rounded-xl bg-white px-3 py-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-[11px] font-bold text-[#4a4456]">{file.name}</p>
+                    <p className="text-[9px] text-[#9992a2]">{file.type.startsWith('audio/') ? 'Audio' : 'Imagen'} · {formatEvidenceSize(file.size)}</p>
+                  </div>
+                  <button type="button" onClick={() => setFiles((current) => current.filter((item) => item !== file))} className="text-[10px] font-bold text-[#b46b75]">Quitar</button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <p className="mt-3 text-[10px] leading-4 text-[#9a93a2]">
+            En este prototipo los archivos quedan guardados localmente en este dispositivo. No se envían automáticamente a terceros.
+          </p>
+          {fileError && <p className="mt-2 text-[11px] font-semibold text-[#b85f6c]">{fileError}</p>}
+        </div>
+
         <div className="space-y-3 rounded-2xl bg-white p-4">
           <label className="flex items-start gap-3 text-sm">
             <input type="checkbox" checked={fromNewAccount} onChange={(e) => setFromNewAccount(e.target.checked)} className="mt-1" />
@@ -87,7 +169,9 @@ export default function RegisterInteraction() {
           </label>
         </div>
 
-        <button className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">Guardar interacción</button>
+        <button disabled={saving} className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white disabled:opacity-60">
+          {saving ? 'Guardando...' : 'Guardar interacción'}
+        </button>
       </form>
     </AppShell>
   )
