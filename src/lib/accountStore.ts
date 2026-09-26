@@ -3,6 +3,7 @@ export type AIPreference = 'automatic' | 'ask'
 export interface LumiLocalUser {
   name: string
   email: string
+  passwordHash?: string
 }
 
 export interface AIDataPermissions {
@@ -54,6 +55,14 @@ function write<T>(key: string, value: T) {
   localStorage.setItem(key, JSON.stringify(value))
 }
 
+async function hashPassword(password: string) {
+  const bytes = new TextEncoder().encode(password)
+  const digest = await crypto.subtle.digest('SHA-256', bytes)
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('')
+}
+
 export function getLocalUser() {
   return read<LumiLocalUser | null>(USER_KEY, null)
 }
@@ -62,10 +71,11 @@ export function hasSession() {
   return localStorage.getItem(SESSION_KEY) === 'active'
 }
 
-export function registerLocalUser(input: LumiLocalUser) {
-  const user = {
+export async function registerLocalUser(input: { name: string; email: string; password: string }) {
+  const user: LumiLocalUser = {
     name: input.name.trim(),
     email: input.email.trim().toLowerCase(),
+    passwordHash: await hashPassword(input.password),
   }
   write(USER_KEY, user)
   localStorage.setItem(SESSION_KEY, 'active')
@@ -73,9 +83,21 @@ export function registerLocalUser(input: LumiLocalUser) {
   return user
 }
 
-export function loginLocalUser(email: string) {
+export async function loginLocalUser(email: string, password: string) {
   const user = getLocalUser()
   if (!user || user.email !== email.trim().toLowerCase()) return false
+
+  const passwordHash = await hashPassword(password)
+
+  // Compatibilidad con cuentas locales creadas antes de guardar hash de contraseña.
+  // En el primer acceso correcto por correo, adopta la contraseña ingresada.
+  if (!user.passwordHash) {
+    write(USER_KEY, { ...user, passwordHash })
+    localStorage.setItem(SESSION_KEY, 'active')
+    return true
+  }
+
+  if (user.passwordHash !== passwordHash) return false
   localStorage.setItem(SESSION_KEY, 'active')
   return true
 }
