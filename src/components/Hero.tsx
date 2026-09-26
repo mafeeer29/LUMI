@@ -9,15 +9,15 @@ const benefits = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffaf5_0%,#f7f1ff_44%,#e8defe_100%)] pt-20 lg:pt-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffaf5_0%,#f7f1ff_44%,#e8defe_100%)] pt-16 lg:pt-24">
       <div className="absolute -left-28 top-[18%] h-72 w-72 rounded-full bg-[#fff5ea]/80 blur-3xl" />
       <div className="absolute right-[-10%] top-[-5%] h-[460px] w-[460px] rounded-full bg-[#d9ccff]/70 blur-3xl" />
       <div className="absolute bottom-[-18%] left-[28%] h-80 w-80 rounded-full bg-white/60 blur-3xl" />
       <div className="absolute left-[4%] top-[34%] text-2xl text-[#e8b84e]">✦</div>
       <div className="absolute left-[47%] top-[21%] text-sm text-[#efca77]">✦</div>
 
-      <div className="mx-auto grid min-h-[760px] max-w-[1440px] items-center gap-8 px-5 pb-14 sm:px-8 lg:grid-cols-[0.88fr_1.12fr] lg:px-12 lg:pb-6">
-        <div className="relative z-20 pt-10 lg:pt-0">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-2 px-5 pb-8 sm:px-8 lg:min-h-[760px] lg:grid-cols-[0.88fr_1.12fr] lg:gap-8 lg:px-12 lg:pb-6">
+        <div className="relative z-20 pt-6 lg:pt-0">
           <p className="text-[clamp(3.3rem,7vw,6.4rem)] font-black leading-[0.84] tracking-[-0.065em] text-[#312d58]">
             Lumi
           </p>
@@ -55,10 +55,12 @@ export function Hero() {
           </div>
         </div>
 
-        <FloatingPreviewCards />
+        <div className="mt-2 lg:mt-0">
+          <FloatingPreviewCards />
+        </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(to_top,rgba(250,247,255,0.95),transparent)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_top,rgba(250,247,255,0.95),transparent)]" />
     </section>
   )
 }
