@@ -16,8 +16,8 @@ export default function AppShell({ title, children, backTo = '/app' }: { title: 
           >
             ←
           </button>
-          <p className="text-sm font-extrabold text-[#4b4381]">Lumi</p>
-          <Link to="/app" className="text-xs font-semibold text-[#7969c8]">Inicio</Link>
+          <Link to="/app" className="text-sm font-extrabold text-[#4b4381]">Lumi</Link>
+          <Link to="/app/perfil/privacidad-ia" className="text-xs font-semibold text-[#7969c8]">Privacidad</Link>
         </header>
 
         <main>
