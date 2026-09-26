@@ -7,14 +7,29 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [checking, setChecking] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (password.length < 6 || !loginLocalUser(email)) {
-      setError('No encontramos una cuenta local con ese correo. Para la demo, usa el correo con el que te registraste.')
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.')
       return
     }
-    navigate(getNextSetupRoute())
+
+    setChecking(true)
+    setError('')
+    try {
+      const ok = await loginLocalUser(email, password)
+      if (!ok) {
+        setError('Correo o contraseña incorrectos. Recuerda que esta cuenta MVP solo existe en el navegador donde la registraste.')
+        setChecking(false)
+        return
+      }
+      navigate(getNextSetupRoute())
+    } catch {
+      setError('No pudimos iniciar sesión. Intenta nuevamente.')
+      setChecking(false)
+    }
   }
 
   return (
@@ -38,7 +53,9 @@ export default function Login() {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-2 w-full rounded-2xl border border-[#ddd5eb] px-4 py-3 font-normal outline-none focus:border-[#7665c7]" placeholder="Tu contraseña" />
             </label>
             {error && <p className="rounded-2xl bg-[#fff2f2] p-3 text-xs text-[#9b4d56]">{error}</p>}
-            <button className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">Entrar</button>
+            <button disabled={checking} className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white disabled:opacity-60">
+              {checking ? 'Entrando...' : 'Entrar'}
+            </button>
           </form>
 
           <p className="mt-5 text-center text-xs text-[#716a7c]">¿Primera vez? <Link to="/registro" className="font-bold text-[#6755c8]">Crear cuenta</Link></p>
