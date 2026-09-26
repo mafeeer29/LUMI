@@ -1,13 +1,16 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AppShell from '../components/AppShell'
 import {
   getPrivacySettings,
+  logoutLocalUser,
   setAIDataPermissions,
   setAIPreference,
   type AIPreference,
 } from '../lib/accountStore'
 
 export default function PrivacyAI() {
+  const navigate = useNavigate()
   const privacy = getPrivacySettings()
   const [preference, setPreference] = useState<AIPreference>(privacy.aiPreference ?? 'ask')
   const [shareContext, setShareContext] = useState(privacy.aiDataPermissions.shareCaseContext)
@@ -22,6 +25,11 @@ export default function PrivacyAI() {
     })
     setSaved(true)
     window.setTimeout(() => setSaved(false), 2200)
+  }
+
+  function logout() {
+    logoutLocalUser()
+    navigate('/login', { replace: true })
   }
 
   return (
@@ -76,6 +84,7 @@ export default function PrivacyAI() {
 
       {saved && <p className="mt-4 rounded-2xl bg-[#e9f7ef] p-3 text-center text-xs font-bold text-[#3d7a58]">Preferencias guardadas.</p>}
       <button type="button" onClick={saveSettings} className="mt-5 w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">Guardar cambios</button>
+      <button type="button" onClick={logout} className="mt-3 w-full rounded-2xl border border-[#e4dce8] bg-white px-4 py-3 text-sm font-bold text-[#8a5260]">Cerrar sesión</button>
     </AppShell>
   )
 }
