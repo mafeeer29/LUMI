@@ -70,7 +70,8 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#fbf9ff] text-[#26324b]">
       <div className="mx-auto min-h-screen w-full max-w-[520px] pb-28">
-        <section className="relative overflow-hidden bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_48%,#f8f4ff_100%)] px-5 pb-6 pt-3 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.45)]">          <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
+        <section className="relative overflow-hidden bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_48%,#f8f4ff_100%)] px-5 pb-6 pt-3 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.45)]">
+          <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
           <div className="absolute -right-16 -top-12 h-40 w-40 rounded-full bg-white/28" />
           <div className="absolute right-7 top-[92px] text-[11px] text-[#d8b45a]">✦</div>
 
@@ -108,59 +109,62 @@ export default function Dashboard() {
               <img
                 src={mascot}
                 alt="Lumi te acompaña"
-                className="relative z-10 -mb-1 -ml-2 h-[12rem] w-auto object-contain drop-shadow-[0_14px_20px_rgba(76,61,126,0.16)]"              />
+                className="relative z-10 -mb-1 -ml-2 h-[12rem] w-auto object-contain drop-shadow-[0_14px_20px_rgba(76,61,126,0.16)]"
+              />
             </div>
           </div>
         </section>
 
-        <main className="space-y-5 px-5 pt-5">
+        <main className="space-y-6 px-5 pt-6">
           <section>
             <div className="mb-3 flex items-end justify-between">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9187a6]">Caso activo</p>
-                <h2 className="mt-1 text-[18px] font-extrabold tracking-[-0.025em] text-[#302b48]">Tu caso actual</h2>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9a90ab]">Caso activo</p>
+                <h2 className="mt-1 text-[19px] font-extrabold tracking-[-0.03em] text-[#312b49]">Tu caso actual</h2>
               </div>
-              <button type="button" className="text-[11px] font-semibold text-[#6b55c4]">Ver detalle</button>
+              <button type="button" className="text-[11px] font-semibold text-[#6a55be]">Ver detalle</button>
             </div>
 
-            <div className="rounded-[26px] bg-white p-4 shadow-[0_14px_38px_-28px_rgba(70,52,115,0.45)] ring-1 ring-[#eee8f5]">
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f1edff] text-[#6756b8]">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M7 5.5h10M7 10h10M7 14.5h6M5 3.5h14a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" />
-                  </svg>
+            <div className="overflow-hidden rounded-[28px] bg-white shadow-[0_16px_36px_-30px_rgba(70,52,115,0.42)] ring-1 ring-[#f0ebf6]">
+              <div className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#f0ebff] text-[#6756b8]">
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M7 5.5h10M7 10h10M7 14.5h6M5 3.5h14a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" />
+                    </svg>
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-[14px] font-bold leading-5 text-[#313348]">Situación con compañero de universidad</h3>
+                      <span className="shrink-0 rounded-full bg-[#fff2cb] px-2.5 py-1 text-[9px] font-bold text-[#856516]">Atención</span>
+                    </div>
+                    <p className="mt-1 text-[11px] text-[#96909e]">Actualizado hoy · 19:20</p>
+                  </div>
                 </div>
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-[14px] font-bold leading-5 text-[#30354a]">Situación con compañero de universidad</h3>
-                    <span className="shrink-0 rounded-full bg-[#fff1cc] px-2.5 py-1 text-[9px] font-bold text-[#8a6815]">Atención</span>
+                <div className="mt-4 grid grid-cols-2 gap-2.5">
+                  <div className="rounded-[20px] bg-[#f7f4ff] p-3.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-[#8d78df]" />
+                      <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-[#877ca0]">Conducta</p>
+                    </div>
+                    <p className="mt-2 text-[13px] font-bold leading-4 text-[#3a354d]">Atención elevada</p>
                   </div>
-                  <p className="mt-1 text-[11px] text-[#8b8796]">Actualizado hoy · 19:20</p>
-                </div>
-              </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-2.5">
-                <div className="rounded-[20px] bg-[#f7f4ff] p-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[#8e79e6]" />
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#83779e]">Conducta</p>
+                  <div className="rounded-[20px] bg-[#fff8eb] p-3.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-[#e1ae4e]" />
+                      <p className="text-[9px] font-semibold uppercase tracking-[0.13em] text-[#947746]">Impacto</p>
+                    </div>
+                    <p className="mt-2 text-[13px] font-bold leading-4 text-[#3a354d]">Impacto creciente</p>
                   </div>
-                  <p className="mt-2 text-[13px] font-bold leading-4 text-[#39334f]">Atención elevada</p>
-                </div>
-
-                <div className="rounded-[20px] bg-[#fff8eb] p-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[#e6b455]" />
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#967744]">Impacto</p>
-                  </div>
-                  <p className="mt-2 text-[13px] font-bold leading-4 text-[#39334f]">Impacto creciente</p>
                 </div>
               </div>
 
               <button
                 type="button"
-                className="mt-4 w-full rounded-2xl bg-[#6552c7] px-4 py-3.5 text-[13px] font-bold text-white shadow-[0_10px_22px_-14px_rgba(101,82,199,0.8)] transition hover:bg-[#5946b8]"
+                className="w-full bg-[#6653c7] px-4 py-3.5 text-[13px] font-bold text-white transition hover:bg-[#5a47b8]"
               >
                 Registrar nueva interacción
               </button>
@@ -169,29 +173,32 @@ export default function Dashboard() {
 
           <section>
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-[17px] font-extrabold tracking-[-0.025em] text-[#302b48]">Tu línea de tiempo</h2>
-              <button type="button" className="text-[11px] font-semibold text-[#6b55c4]">Ver todo</button>
+              <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#312b49]">Tu línea de tiempo</h2>
+              <button type="button" className="text-[11px] font-semibold text-[#6a55be]">Ver todo</button>
             </div>
 
-            <div className="rounded-[26px] bg-white px-4 py-4 shadow-[0_12px_34px_-30px_rgba(70,52,115,0.42)] ring-1 ring-[#eee8f5]">
-              <div className="relative space-y-5 before:absolute before:bottom-2 before:left-[6px] before:top-2 before:w-px before:bg-[#e6def4]">
+            <div className="relative pl-1">
+              <div className="absolute bottom-3 left-[7px] top-3 w-px bg-[#e4dcf1]" />
+
+              <div className="space-y-4">
                 {timeline.map((event) => {
                   const dotClass =
                     event.tone === 'violet'
-                      ? 'bg-[#8e79e6]'
+                      ? 'bg-[#8d78df]'
                       : event.tone === 'amber'
-                        ? 'bg-[#e7b85b]'
-                        : 'bg-[#dc8f98]'
+                        ? 'bg-[#e2b054]'
+                        : 'bg-[#d98b95]'
 
                   return (
-                    <div key={event.title} className="relative flex gap-3 pl-0.5">
-                      <span className={`relative z-10 mt-1.5 h-3 w-3 shrink-0 rounded-full ring-4 ring-white ${dotClass}`} />
-                      <div className="min-w-0 flex-1">
+                    <div key={event.title} className="relative flex gap-3">
+                      <span className={`relative z-10 mt-1.5 h-3.5 w-3.5 shrink-0 rounded-full ring-[5px] ring-[#fbf9ff] ${dotClass}`} />
+
+                      <div className="min-w-0 flex-1 rounded-[22px] bg-white px-4 py-3 shadow-[0_10px_28px_-26px_rgba(70,52,115,0.42)] ring-1 ring-[#f1ecf6]">
                         <div className="flex items-start justify-between gap-3">
-                          <p className="text-[13px] font-bold text-[#383348]">{event.title}</p>
-                          <span className="shrink-0 text-[9px] font-medium text-[#9993a4]">{event.time}</span>
+                          <p className="text-[13px] font-bold text-[#393449]">{event.title}</p>
+                          <span className="shrink-0 text-[9px] font-medium text-[#a09aa7]">{event.time}</span>
                         </div>
-                        <p className="mt-0.5 text-[11px] leading-4 text-[#777383]">{event.detail}</p>
+                        <p className="mt-1 text-[11px] leading-4 text-[#7c7685]">{event.detail}</p>
                       </div>
                     </div>
                   )
@@ -200,54 +207,71 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section className="rounded-[28px] bg-[#fff9ee] p-4 ring-1 ring-[#f5ead5]">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff0cf] text-[#9b7726]">
+          <section className="relative overflow-hidden rounded-[28px] bg-[#fff8eb] p-[18px] ring-1 ring-[#f4ead7]">
+            <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/45" />
+            <div className="relative z-10 flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#fff0cb] text-[#9a7422]">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M12 3v2M12 19v2M4.2 7.5 6 8.6M18 15.4l1.8 1.1M4.2 16.5 6 15.4M18 8.6l1.8-1.1" />
                   <circle cx="12" cy="12" r="4.2" />
                 </svg>
               </div>
+
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9a7f54]">Check-in de impacto</p>
-                <h2 className="mt-1 text-[15px] font-extrabold leading-5 text-[#3b3545]">¿Qué está empezando a cambiar en tu vida?</h2>
-                <p className="mt-1 text-[11px] leading-4 text-[#746d72]">Marca solo lo que quieras compartir.</p>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9a8056]">Check-in de impacto</p>
+                <h2 className="mt-1 text-[16px] font-extrabold leading-5 text-[#3d3748]">¿Qué está empezando a cambiar en tu vida?</h2>
+                <p className="mt-1 text-[11px] leading-4 text-[#746e77]">Puedes marcar solo lo que quieras compartir.</p>
               </div>
             </div>
 
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="relative z-10 mt-4 flex flex-wrap gap-2">
               {impactOptions.map((option) => (
-                <span key={option} className="rounded-full bg-white px-3 py-1.5 text-[10px] font-medium text-[#71677c] ring-1 ring-[#eee2ce]">
+                <button
+                  key={option}
+                  type="button"
+                  className="rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-medium text-[#6e6677] ring-1 ring-[#eee2cf] transition hover:bg-white"
+                >
                   {option}
-                </span>
+                </button>
               ))}
             </div>
 
-            <button type="button" className="mt-3 text-[11px] font-bold text-[#7a5f1f]">Hacer check-in →</button>
+            <button type="button" className="relative z-10 mt-4 inline-flex items-center gap-1 text-[11px] font-bold text-[#785d20]">
+              Hacer check-in <span aria-hidden="true">→</span>
+            </button>
           </section>
 
-          <section className="rounded-[26px] bg-[#f1edff] p-4">
-            <div className="flex items-center justify-between gap-3">
+          <section className="rounded-[28px] bg-[#f1edff] p-[18px]">
+            <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#81769d]">Tu red de apoyo</p>
-                <h2 className="mt-1 text-[15px] font-extrabold text-[#39334d]">No tienes que organizar todo sola.</h2>
-                <p className="mt-1 text-[11px] leading-4 text-[#6d657d]">Puedes preparar un resumen y compartirlo solo si tú decides hacerlo.</p>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#82779d]">Tu red de apoyo</p>
+                <h2 className="mt-1 text-[16px] font-extrabold leading-5 text-[#39334d]">Tú decides cuándo compartir.</h2>
+                <p className="mt-1.5 text-[11px] leading-4 text-[#6c657a]">
+                  Prepara un resumen de tu caso y compártelo con alguien de confianza solo si quieres hacerlo.
+                </p>
               </div>
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#6655b6] shadow-sm">
+
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/90 text-[#6655b6] shadow-sm">
                 <NavIcon type="support" />
               </div>
             </div>
 
-            <div className="mt-3 flex items-center justify-between rounded-[18px] bg-white/80 px-3 py-2.5">
+            <div className="mt-4 flex items-center justify-between rounded-[20px] bg-white/80 px-3.5 py-3">
               <div>
-                <p className="text-[11px] font-bold text-[#39334d]">Ana</p>
+                <p className="text-[12px] font-bold text-[#39334d]">Ana</p>
                 <p className="text-[10px] text-[#8a8393]">Contacto de confianza</p>
               </div>
-              <button type="button" className="rounded-full bg-[#eee8ff] px-3 py-1.5 text-[10px] font-bold text-[#654fb7]">Ver opciones</button>
+
+              <button type="button" className="rounded-full bg-[#ece5ff] px-3 py-1.5 text-[10px] font-bold text-[#624cb1]">
+                Ver opciones
+              </button>
             </div>
           </section>
 
-          <button type="button" className="w-full rounded-2xl border border-dashed border-[#d8cdef] bg-white/70 px-4 py-3 text-[12px] font-bold text-[#665b7e]">
+          <button
+            type="button"
+            className="w-full rounded-[20px] border border-dashed border-[#d8cdef] bg-white/65 px-4 py-3 text-[12px] font-bold text-[#675c7e] transition hover:bg-white"
+          >
             + Crear nuevo caso
           </button>
         </main>
