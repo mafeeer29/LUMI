@@ -190,49 +190,49 @@ export default function Dashboard() {
             </div>
           </section>
 
-          <section>
+          <section className="rounded-[30px] bg-white/72 p-4 shadow-[0_16px_40px_-32px_rgba(74,58,120,0.32)] backdrop-blur-sm">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#312b49]">Tu línea de tiempo</h2>
-              <button type="button" className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#6a55be]">
+              <button type="button" className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#7665c7]">
                 Ver todo <span aria-hidden="true">›</span>
               </button>
             </div>
 
             <div className="relative">
-              <div className="absolute bottom-5 left-[6px] top-5 w-px bg-[#ded5ef]" />
+              <div className="absolute bottom-4 left-[7px] top-4 w-px bg-[#e4dcf0]" />
 
-              <div className="space-y-4">
+              <div className="space-y-3.5">
                 {timeline.map((event) => {
                   const dotClass =
                     event.tone === 'violet'
-                      ? 'bg-[#9783e8]'
+                      ? 'bg-[#9884e7]'
                       : event.tone === 'amber'
-                        ? 'bg-[#ebb953]'
-                        : 'bg-[#df8b91]'
+                        ? 'bg-[#e7b557]'
+                        : 'bg-[#dd8d96]'
 
                   const iconClass =
                     event.tone === 'violet'
-                      ? 'bg-[#eee9ff] text-[#7b65cf]'
+                      ? 'bg-[#eeeaff] text-[#7a65cd]'
                       : event.tone === 'amber'
-                        ? 'bg-[#fff3da] text-[#c98d28]'
-                        : 'bg-[#fde9ea] text-[#c96f77]'
+                        ? 'bg-[#fff3dc] text-[#c58b2a]'
+                        : 'bg-[#fdebec] text-[#c97079]'
 
                   return (
-                    <div key={event.title} className="relative grid grid-cols-[14px_38px_1fr_auto] items-center gap-3">
-                      <span className={`relative z-10 h-3.5 w-3.5 rounded-full ring-[5px] ring-[#fbf9ff] ${dotClass}`} />
+                    <div key={event.title} className="relative grid grid-cols-[14px_36px_1fr_auto] items-center gap-3">
+                      <span className={`relative z-10 h-3.5 w-3.5 rounded-full ring-[5px] ring-[#fffdfb] ${dotClass}`} />
 
                       <div className={`flex h-9 w-9 items-center justify-center rounded-full ${iconClass}`}>
                         <TimelineIcon tone={event.tone} />
                       </div>
 
-                      <div className="min-w-0 py-1">
+                      <div className="min-w-0 py-0.5">
                         <p className="text-[13px] font-bold leading-4 text-[#393449]">{event.title}</p>
-                        <p className="mt-1 text-[11px] leading-4 text-[#7c7685]">{event.detail}</p>
+                        <p className="mt-0.5 text-[10.5px] leading-4 text-[#817a88]">{event.detail}</p>
                       </div>
 
-                      <div className="self-start pt-1 text-right">
-                        <p className="whitespace-nowrap text-[9px] font-medium leading-4 text-[#a09aa7]">{event.time.split(' · ')[0]}</p>
-                        <p className="whitespace-nowrap text-[9px] font-medium leading-4 text-[#b0aab5]">{event.time.split(' · ')[1]}</p>
+                      <div className="self-start pt-0.5 text-right">
+                        <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#9f99a7]">{event.time.split(' · ')[0]}</p>
+                        <p className="whitespace-nowrap text-[8.5px] font-medium leading-4 text-[#b0aab6]">{event.time.split(' · ')[1]}</p>
                       </div>
                     </div>
                   )
@@ -241,13 +241,13 @@ export default function Dashboard() {
 
               <button
                 type="button"
-                className="mt-5 flex w-full items-center justify-between rounded-full bg-[linear-gradient(90deg,#7563d6_0%,#5f50be_100%)] px-4 py-3 text-[13px] font-bold text-white shadow-[0_14px_26px_-18px_rgba(95,80,190,0.75)] transition hover:brightness-[0.98]"
+                className="mt-4 flex w-full items-center justify-between rounded-full bg-[linear-gradient(90deg,#7a69d7_0%,#6757c4_100%)] px-4 py-2.5 text-[12.5px] font-semibold text-white shadow-[0_12px_22px_-18px_rgba(98,82,192,0.65)] transition hover:brightness-[0.99]"
               >
                 <span className="flex items-center gap-2.5">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[18px] font-medium leading-none text-[#6653c7]">+</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[16px] font-medium leading-none text-[#6a59c5]">+</span>
                   Registrar interacción
                 </span>
-                <span aria-hidden="true" className="text-lg font-light">›</span>
+                <span aria-hidden="true" className="text-base font-light">›</span>
               </button>
             </div>
           </section>
