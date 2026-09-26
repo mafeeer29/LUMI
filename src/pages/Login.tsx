@@ -11,8 +11,8 @@ export default function Login() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.')
+    if (!email.trim() || password.length < 6) {
+      setError('Ingresa tu correo y una contraseña de al menos 6 caracteres.')
       return
     }
 
@@ -21,7 +21,7 @@ export default function Login() {
     try {
       const ok = await loginLocalUser(email, password)
       if (!ok) {
-        setError('Correo o contraseña incorrectos. Recuerda que esta cuenta MVP solo existe en el navegador donde la registraste.')
+        setError('Correo o contraseña incorrectos. Esta cuenta MVP solo existe en el navegador donde la registraste.')
         setChecking(false)
         return
       }
@@ -42,7 +42,7 @@ export default function Login() {
           <p className="mt-3 text-sm leading-6 text-[#716a7c]">Este acceso es solo para el MVP y funciona en este navegador.</p>
 
           <div className="mt-4 rounded-2xl bg-[#f2edff] p-4 text-xs leading-5 text-[#5e5675]">
-            <strong>Lumi utiliza IA como parte de su análisis.</strong> Al entrar se respetará tu configuración de consentimiento y de cuándo analizar. Si todavía no la configuraste, te llevaremos a ese paso antes de ingresar al dashboard.
+            <strong>Lumi utiliza IA como parte de su funcionamiento.</strong> Si aún no aceptaste los términos, privacidad y autorización de análisis con IA, te llevaremos a esa pantalla antes de entrar.
           </div>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
