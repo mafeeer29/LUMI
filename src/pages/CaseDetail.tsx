@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import AppShell from '../components/AppShell'
 import { getActiveCase, getCaseCheckins, getCaseInteractions, getConductLevel, getImpactLevel } from '../lib/lumiStore'
 
+function labelSignal(signal: string) {
+  return signal.replaceAll('_', ' ')
+}
+
 export default function CaseDetail() {
   const data = useMemo(() => {
     const activeCase = getActiveCase()
@@ -28,6 +32,10 @@ export default function CaseDetail() {
   const latestCheckin = data.checkins[0]
   const hasElevatedConduct = data.conduct === 'Atención elevada'
   const hasGrowingImpact = data.impact === 'Impacto creciente'
+  const latestAIInteraction = data.interactions.find((interaction) => interaction.analysis)
+  const latestAnalysis = latestAIInteraction?.analysis
+  const detectedConducts = latestAnalysis?.conductas.filter((item) => item.detectada) ?? []
+  const detectedImpacts = latestAnalysis?.impacto.filter((item) => item.detectado) ?? []
 
   return (
     <AppShell title="Tu caso actual">
@@ -48,6 +56,38 @@ export default function CaseDetail() {
         </div>
       </div>
 
+      {latestAnalysis && (
+        <section className="mt-6 rounded-[26px] bg-[#f4f0ff] p-5 ring-1 ring-[#e5dcfb]">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#7665c7]">Análisis con IA</p>
+              <h2 className="mt-1 text-base font-extrabold text-[#342f5d]">Señales observadas por Lumi</h2>
+            </div>
+            <span className="rounded-full bg-white px-3 py-1 text-[10px] font-bold text-[#6755c8]">{latestAnalysis.riesgo.nivelAtencion}</span>
+          </div>
+
+          <p className="mt-3 text-sm leading-6 text-[#5f5868]">{latestAnalysis.resumen}</p>
+
+          <div className="mt-4 space-y-2 text-sm leading-5 text-[#5f5868]">
+            {detectedConducts.length > 0 && (
+              <p><strong>Conductas detectadas:</strong> {detectedConducts.map((item) => labelSignal(item.tipo)).join(', ')}.</p>
+            )}
+            {latestAnalysis.recurrencia.detectada && <p><strong>Recurrencia:</strong> se encontraron indicios explícitos de repetición o persistencia.</p>}
+            {latestAnalysis.escalamiento.detectado && <p><strong>Escalamiento:</strong> {latestAnalysis.escalamiento.patron ?? 'se observaron cambios en frecuencia, presión o severidad.'}</p>}
+            {detectedImpacts.length > 0 && (
+              <p><strong>Impacto reportado:</strong> {detectedImpacts.map((item) => labelSignal(item.tipo)).join(', ')}.</p>
+            )}
+          </div>
+
+          <div className="mt-4 rounded-2xl bg-white/80 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#81769d]">Siguiente paso sugerido</p>
+            <p className="mt-2 text-sm leading-5 text-[#4f485d]">{latestAnalysis.riesgo.accionRecomendada}</p>
+          </div>
+
+          <p className="mt-3 text-[10px] leading-4 text-[#8f879a]">{latestAnalysis.disclaimer}</p>
+        </section>
+      )}
+
       <section className="mt-6">
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#9389a5]">Qué está observando Lumi</p>
         <div className="mt-3 space-y-2 rounded-[24px] bg-white p-4 text-sm leading-6 text-[#5f5868]">
@@ -55,6 +95,7 @@ export default function CaseDetail() {
           {hasElevatedConduct && <p>• Hay señales de persistencia o cambio de canal que elevan la atención del patrón de contacto.</p>}
           {latestCheckin && latestCheckin.changes.length > 0 && <p>• En tu último check-in registraste cambios en: {latestCheckin.changes.join(', ')}.</p>}
           {hasGrowingImpact && <p>• El impacto registrado está creciendo, por lo que conviene priorizar apoyo y organización de la información.</p>}
+          {!latestAnalysis && <p>• Registra una interacción con descripción para que Lumi pueda analizar señales semánticas con IA.</p>}
         </div>
       </section>
 
