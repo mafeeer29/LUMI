@@ -8,15 +8,24 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!name.trim() || !email.trim() || password.length < 6) {
       setError('Completa tu nombre, correo y una contraseña de al menos 6 caracteres.')
       return
     }
-    registerLocalUser({ name, email })
-    navigate('/privacidad')
+
+    setSaving(true)
+    setError('')
+    try {
+      await registerLocalUser({ name, email, password })
+      navigate('/privacidad')
+    } catch {
+      setError('No pudimos crear la cuenta local. Intenta nuevamente.')
+      setSaving(false)
+    }
   }
 
   return (
@@ -43,7 +52,9 @@ export default function Register() {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-2 w-full rounded-2xl border border-[#ddd5eb] px-4 py-3 font-normal outline-none focus:border-[#7665c7]" placeholder="Mínimo 6 caracteres" />
             </label>
             {error && <p className="rounded-2xl bg-[#fff2f2] p-3 text-xs text-[#9b4d56]">{error}</p>}
-            <button className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">Continuar</button>
+            <button disabled={saving} className="w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white disabled:opacity-60">
+              {saving ? 'Creando cuenta...' : 'Continuar'}
+            </button>
           </form>
 
           <p className="mt-5 text-center text-xs text-[#716a7c]">¿Ya tienes una cuenta local? <Link to="/login" className="font-bold text-[#6755c8]">Iniciar sesión</Link></p>
