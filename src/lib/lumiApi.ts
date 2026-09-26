@@ -33,15 +33,10 @@ export type LumiAnalysis = {
   disclaimer: string
 }
 
-const API_URL = (
-  import.meta.env.VITE_LUMI_API_URL ??
-  (import.meta.env.DEV ? "http://localhost:3001" : "")
-).replace(/\/$/, "")
-
 export async function analizarConLumi(
   texto: string
 ): Promise<LumiAnalysis> {
-  const response = await fetch(`${API_URL}/api/analyze`, {
+  const response = await fetch("http://localhost:3001/api/analyze", {
     method: "POST",
 
     headers: {
