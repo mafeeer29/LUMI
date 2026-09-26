@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import LegalConsent from './pages/LegalConsent'
 import AIPreferencePage from './pages/AIPreference'
 import Onboarding from './pages/Onboarding'
+import PrivacyAI from './pages/PrivacyAI'
 import { getNextSetupRoute, hasSession } from './lib/accountStore'
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -39,6 +40,7 @@ function App() {
       <Route path="/app/caso" element={<ProtectedRoute><CaseDetail /></ProtectedRoute>} />
       <Route path="/app/bitacora" element={<ProtectedRoute><Timeline /></ProtectedRoute>} />
       <Route path="/app/apoyo" element={<ProtectedRoute><Support /></ProtectedRoute>} />
+      <Route path="/app/perfil/privacidad-ia" element={<ProtectedRoute><PrivacyAI /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
