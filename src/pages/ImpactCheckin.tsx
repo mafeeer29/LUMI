@@ -1,6 +1,7 @@
 import { FormEvent, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppShell from '../components/AppShell'
+import lumiMascot from '../assets/lumi-mascot.png'
 import { addCheckin, getActiveCase } from '../lib/lumiStore'
 
 const options = [
@@ -43,10 +44,17 @@ export default function ImpactCheckin() {
   }
 
   return (
-    <AppShell title="¿Qué está empezando a cambiar en tu vida?">
-      <p className="-mt-2 mb-6 text-sm leading-6 text-[#716a7c]">
-        Marca solo lo que quieras compartir. Lumi organiza los cambios que expresas; no realiza diagnósticos.
-      </p>
+    <AppShell title="Un momento para ti">
+      <div className="mb-5 flex items-end gap-3">
+        <img src={lumiMascot} alt="Lumi" className="h-14 w-14 shrink-0 object-contain" />
+        <div className="max-w-[82%] rounded-[22px] rounded-bl-md bg-[#eee8ff] px-4 py-3 text-sm leading-6 text-[#514873]">
+          Hola. Quiero entender cómo te está afectando esta situación, sin que tengas que explicarlo todo de una vez.
+        </div>
+      </div>
+
+      <div className="mb-5 ml-16 max-w-[82%] rounded-[22px] rounded-bl-md bg-white px-4 py-3 text-sm leading-6 text-[#625b6e] shadow-sm ring-1 ring-[#eee8f5]">
+        ¿Has notado alguno de estos cambios últimamente? Puedes marcar más de uno o decir que por ahora no ha cambiado nada.
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div className="space-y-2.5">
@@ -57,7 +65,7 @@ export default function ImpactCheckin() {
                 key={option}
                 type="button"
                 onClick={() => toggle(option)}
-                className={`w-full rounded-2xl border px-4 py-3 text-left text-sm transition ${selected ? 'border-[#8d78df] bg-[#f0ebff] text-[#453a71]' : 'border-[#ebe5f3] bg-white text-[#514b5e]'}`}
+                className={`w-full rounded-[20px] border px-4 py-3 text-left text-sm transition ${selected ? 'border-[#8d78df] bg-[#f0ebff] text-[#453a71]' : 'border-[#ebe5f3] bg-white text-[#514b5e]'}`}
               >
                 <span className="flex items-center justify-between gap-4">
                   {option}
@@ -70,12 +78,34 @@ export default function ImpactCheckin() {
           })}
         </div>
 
-        <label className="mt-5 block">
-          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#8b819d]">¿Quieres contarnos algo más? · Opcional</span>
-          <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={4} placeholder="Ej. Dejé de ir al grupo de estudios porque me preocupa encontrarme con esa persona." className="w-full resize-none rounded-2xl border border-[#ebe5f3] bg-white px-4 py-3 text-sm outline-none focus:border-[#9b89dd]" />
-        </label>
+        {changes.length > 0 && (
+          <div className="mt-5 flex items-end gap-3">
+            <img src={lumiMascot} alt="Lumi" className="h-11 w-11 shrink-0 object-contain" />
+            <div className="max-w-[82%] rounded-[20px] rounded-bl-md bg-[#eee8ff] px-4 py-3 text-sm leading-5 text-[#514873]">
+              Gracias por contármelo. Estos cambios me ayudan a entender mejor el impacto que estás viviendo y a darte recomendaciones más útiles.
+            </div>
+          </div>
+        )}
 
-        <button className="mt-5 w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">Guardar check-in</button>
+        <div className="mt-5 rounded-[24px] bg-white p-4 shadow-sm ring-1 ring-[#eee8f5]">
+          <p className="text-sm font-bold text-[#4d465c]">Si quieres, puedes contarme un poco más.</p>
+          <p className="mt-1 text-xs leading-5 text-[#817a89]">Es opcional. Puedes escribirlo con tus propias palabras.</p>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            rows={4}
+            placeholder="Ej. Dejé de ir al grupo de estudios porque me preocupa encontrarme con esa persona."
+            className="mt-3 w-full resize-none rounded-2xl border border-[#ebe5f3] bg-[#fcfbff] px-4 py-3 text-sm outline-none focus:border-[#9b89dd]"
+          />
+        </div>
+
+        <div className="mt-4 rounded-2xl bg-[#faf8fd] px-4 py-3 text-[11px] leading-5 text-[#898190]">
+          Lumi usa lo que tú decides compartir para organizar señales e impacto. No realiza diagnósticos ni determina culpabilidad.
+        </div>
+
+        <button className="mt-5 w-full rounded-2xl bg-[#6755c8] px-4 py-3.5 text-sm font-bold text-white">
+          Guardar y continuar
+        </button>
       </form>
     </AppShell>
   )
