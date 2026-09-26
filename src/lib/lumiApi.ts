@@ -33,7 +33,10 @@ export type LumiAnalysis = {
   disclaimer: string
 }
 
-const API_URL = (import.meta.env.VITE_LUMI_API_URL || "http://localhost:3001").replace(/\/$/, "")
+const API_URL = (
+  import.meta.env.VITE_LUMI_API_URL ??
+  (import.meta.env.DEV ? "http://localhost:3001" : "")
+).replace(/\/$/, "")
 
 export async function analizarConLumi(
   texto: string
