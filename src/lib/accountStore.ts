@@ -1,14 +1,8 @@
-export type AIPreference = 'automatic' | 'ask'
-
 export interface LumiLocalUser {
   name: string
   email: string
+  password?: string
   passwordHash?: string
-}
-
-export interface AIDataPermissions {
-  shareCaseContext: boolean
-  shareImages: boolean
 }
 
 export interface PrivacySettings {
@@ -17,8 +11,6 @@ export interface PrivacySettings {
   acceptedAt: string | null
   aiConsent: boolean
   aiConsentAt: string | null
-  aiPreference: AIPreference | null
-  aiDataPermissions: AIDataPermissions
   onboardingCompleted: boolean
 }
 
@@ -26,19 +18,12 @@ const USER_KEY = 'lumi_user_v1'
 const SESSION_KEY = 'lumi_session_v1'
 const PRIVACY_KEY = 'lumi_privacy_v1'
 
-const defaultAIDataPermissions: AIDataPermissions = {
-  shareCaseContext: true,
-  shareImages: false,
-}
-
 const defaultPrivacy: PrivacySettings = {
   acceptedTerms: false,
   acceptedPrivacy: false,
   acceptedAt: null,
   aiConsent: false,
   aiConsentAt: null,
-  aiPreference: null,
-  aiDataPermissions: defaultAIDataPermissions,
   onboardingCompleted: false,
 }
 
@@ -75,7 +60,7 @@ export async function registerLocalUser(input: { name: string; email: string; pa
   const user: LumiLocalUser = {
     name: input.name.trim(),
     email: input.email.trim().toLowerCase(),
-    passwordHash: await hashPassword(input.password),
+    password: input.password,
   }
   write(USER_KEY, user)
   localStorage.setItem(SESSION_KEY, 'active')
@@ -87,17 +72,27 @@ export async function loginLocalUser(email: string, password: string) {
   const user = getLocalUser()
   if (!user || user.email !== email.trim().toLowerCase()) return false
 
-  const passwordHash = await hashPassword(password)
-
-  // Compatibilidad con cuentas locales creadas antes de guardar hash de contraseña.
-  // En el primer acceso correcto por correo, adopta la contraseña ingresada.
-  if (!user.passwordHash) {
-    write(USER_KEY, { ...user, passwordHash })
+  if (user.password !== undefined) {
+    if (user.password !== password) return false
     localStorage.setItem(SESSION_KEY, 'active')
     return true
   }
 
-  if (user.passwordHash !== passwordHash) return false
+  // Compatibilidad con cuentas creadas antes de simplificar el MVP.
+  if (user.passwordHash) {
+    try {
+      const passwordHash = await hashPassword(password)
+      if (passwordHash !== user.passwordHash) return false
+      write(USER_KEY, { ...user, password })
+      localStorage.setItem(SESSION_KEY, 'active')
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  // Compatibilidad con las primeras cuentas locales que no guardaban contraseña.
+  write(USER_KEY, { ...user, password })
   localStorage.setItem(SESSION_KEY, 'active')
   return true
 }
@@ -107,63 +102,25 @@ export function logoutLocalUser() {
 }
 
 export function getPrivacySettings(): PrivacySettings {
-  const stored = read<Partial<PrivacySettings> & { aiPreference?: AIPreference | 'disabled' | null }>(PRIVACY_KEY, {})
-
-  // Migra silenciosamente preferencias antiguas del prototipo. Si antes estaba
-  // en "disabled", se vuelve a pedir consentimiento en el nuevo flujo.
-  const oldPreference = stored.aiPreference
-  const validPreference = oldPreference === 'automatic' || oldPreference === 'ask' ? oldPreference : null
-  const requiresNewConsent = oldPreference === 'disabled'
-
+  const stored = read<Partial<PrivacySettings>>(PRIVACY_KEY, {})
   return {
     ...defaultPrivacy,
     ...stored,
-    aiConsent: requiresNewConsent ? false : Boolean(stored.aiConsent),
-    aiConsentAt: requiresNewConsent ? null : stored.aiConsentAt ?? null,
-    aiPreference: requiresNewConsent ? null : validPreference,
-    aiDataPermissions: {
-      ...defaultAIDataPermissions,
-      ...(stored.aiDataPermissions ?? {}),
-    },
+    aiConsent: Boolean(stored.aiConsent),
+    aiConsentAt: stored.aiConsentAt ?? null,
   }
 }
 
-export function acceptLegalDocuments() {
+export function acceptSetupConsent() {
+  const now = new Date().toISOString()
   const current = getPrivacySettings()
   write(PRIVACY_KEY, {
     ...current,
     acceptedTerms: true,
     acceptedPrivacy: true,
-    acceptedAt: new Date().toISOString(),
-  })
-}
-
-export function acceptAIConsent(aiPreference: AIPreference, aiDataPermissions?: Partial<AIDataPermissions>) {
-  const current = getPrivacySettings()
-  write(PRIVACY_KEY, {
-    ...current,
+    acceptedAt: now,
     aiConsent: true,
-    aiConsentAt: new Date().toISOString(),
-    aiPreference,
-    aiDataPermissions: {
-      ...current.aiDataPermissions,
-      ...aiDataPermissions,
-    },
-  })
-}
-
-export function setAIPreference(aiPreference: AIPreference) {
-  write(PRIVACY_KEY, { ...getPrivacySettings(), aiPreference })
-}
-
-export function setAIDataPermissions(aiDataPermissions: Partial<AIDataPermissions>) {
-  const current = getPrivacySettings()
-  write(PRIVACY_KEY, {
-    ...current,
-    aiDataPermissions: {
-      ...current.aiDataPermissions,
-      ...aiDataPermissions,
-    },
+    aiConsentAt: now,
   })
 }
 
@@ -174,8 +131,7 @@ export function completeOnboarding() {
 export function getNextSetupRoute() {
   if (!hasSession()) return '/login'
   const privacy = getPrivacySettings()
-  if (!privacy.acceptedTerms || !privacy.acceptedPrivacy) return '/privacidad'
-  if (!privacy.aiConsent || !privacy.aiPreference) return '/preferencia-ia'
+  if (!privacy.acceptedTerms || !privacy.acceptedPrivacy || !privacy.aiConsent) return '/privacidad'
   if (!privacy.onboardingCompleted) return '/onboarding'
   return '/app'
 }
