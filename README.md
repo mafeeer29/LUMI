@@ -125,4 +125,3 @@ LUMI fue diseñado bajo un enfoque de control por parte de la persona usuaria:
 
 ---
 
-Si estás revisando este repositorio como parte de una demo, comienza por `src/pages/RegisterInteraction.tsx`, `src/pages/CaseDetail.tsx`, `src/pages/ImpactCheckin.tsx`, `src/pages/Timeline.tsx` y `server/api.mjs` para seguir el flujo principal de LUMI.
