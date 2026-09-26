@@ -70,8 +70,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#fbf9ff] text-[#26324b]">
       <div className="mx-auto min-h-screen w-full max-w-[520px] pb-28">
-        <section className="relative overflow-hidden rounded-b-[34px] bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_52%,#f8f4ff_100%)] px-5 pb-5 pt-5 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.42)]">
-          <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
+        <section className="relative overflow-hidden bg-[linear-gradient(145deg,#efe8ff_0%,#e9e2ff_48%,#f8f4ff_100%)] px-5 pb-6 pt-3 shadow-[0_16px_40px_-30px_rgba(85,65,130,0.45)]">          <div className="absolute -left-12 top-24 h-28 w-28 rounded-full border border-white/45" />
           <div className="absolute -right-16 -top-12 h-40 w-40 rounded-full bg-white/28" />
           <div className="absolute right-7 top-[92px] text-[11px] text-[#d8b45a]">✦</div>
 
@@ -87,24 +86,29 @@ export default function Dashboard() {
             </button>
           </header>
 
-          <div className="relative z-10 mt-5 grid grid-cols-[1.05fr_0.95fr] items-end gap-2">
-            <div className="pb-2">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">Hola, Lucía</p>
-              <h1 className="mt-2 text-[27px] font-extrabold leading-[1.03] tracking-[-0.045em] text-[#342f5d]">
+          <div className="relative z-10 mt-2 grid grid-cols-[1.02fr_0.98fr] items-end gap-0">
+            <div className="pb-3">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#776c98]">
+                Hola, Lucía
+              </p>
+
+              <h1 className="mt-2 text-[30px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#342f5d]">
                 Este es tu espacio.
               </h1>
-              <p className="mt-2 max-w-[230px] text-[12px] leading-[1.45] text-[#6f6685]">
+
+              <p className="mt-2 max-w-[220px] text-[13px] leading-[1.5] text-[#6f6685]">
                 Tú decides qué registrar, qué compartir y qué paso tomar después.
               </p>
             </div>
 
-            <div className="relative flex min-h-[150px] items-end justify-end">
-              <div className="absolute bottom-2 right-0 h-28 w-28 rounded-full bg-white/30" />
+            <div className="relative flex min-h-[150px] items-end justify-start pl-1">
+              <div className="absolute bottom-3 right-3 h-24 w-24 rounded-full bg-white/30 blur-[1px]" />
+              <div className="absolute bottom-6 right-6 h-16 w-16 rounded-full border border-white/55" />
+
               <img
                 src={mascot}
                 alt="Lumi te acompaña"
-                className="relative z-10 -mb-2 h-40 w-auto object-contain drop-shadow-[0_16px_22px_rgba(76,61,126,0.18)]"
-              />
+                className="relative z-10 -mb-1 -ml-2 h-[12rem] w-auto object-contain drop-shadow-[0_14px_20px_rgba(76,61,126,0.16)]"              />
             </div>
           </div>
         </section>
