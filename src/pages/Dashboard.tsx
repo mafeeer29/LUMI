@@ -66,6 +66,32 @@ function NavIcon({ type }: { type: string }) {
   )
 }
 
+function TimelineIcon({ tone }: { tone: string }) {
+  if (tone === 'amber') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M7.4 4.5h2l1.2 3.2-1.6 1.4a13 13 0 0 0 5.9 5.9l1.4-1.6 3.2 1.2v2c0 1.1-.9 2-2 2C10.9 18.6 5.4 13.1 5.4 6.5c0-1.1.9-2 2-2Z" />
+      </svg>
+    )
+  }
+
+  if (tone === 'rose') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="9" cy="8" r="2.5" />
+        <path d="M4.5 17c.4-2.7 2-4.2 4.5-4.2s4.1 1.5 4.5 4.2M16.5 7v5M14 9.5h5" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M7 4.5h8l3 3v12H7z" />
+      <path d="M15 4.5v3h3M9.5 11h6M9.5 14h6M9.5 17h4" />
+    </svg>
+  )
+}
+
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#fbf9ff] text-[#26324b]">
@@ -161,49 +187,68 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-
-              <button
-                type="button"
-                className="w-full bg-[#6653c7] px-4 py-3.5 text-[13px] font-bold text-white transition hover:bg-[#5a47b8]"
-              >
-                Registrar nueva interacción
-              </button>
             </div>
           </section>
 
           <section>
-            <div className="mb-3 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-[18px] font-extrabold tracking-[-0.03em] text-[#312b49]">Tu línea de tiempo</h2>
-              <button type="button" className="text-[11px] font-semibold text-[#6a55be]">Ver todo</button>
+              <button type="button" className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#6a55be]">
+                Ver todo <span aria-hidden="true">›</span>
+              </button>
             </div>
 
-            <div className="relative pl-1">
-              <div className="absolute bottom-3 left-[7px] top-3 w-px bg-[#e4dcf1]" />
+            <div className="relative">
+              <div className="absolute bottom-5 left-[6px] top-5 w-px bg-[#ded5ef]" />
 
               <div className="space-y-4">
                 {timeline.map((event) => {
                   const dotClass =
                     event.tone === 'violet'
-                      ? 'bg-[#8d78df]'
+                      ? 'bg-[#9783e8]'
                       : event.tone === 'amber'
-                        ? 'bg-[#e2b054]'
-                        : 'bg-[#d98b95]'
+                        ? 'bg-[#ebb953]'
+                        : 'bg-[#df8b91]'
+
+                  const iconClass =
+                    event.tone === 'violet'
+                      ? 'bg-[#eee9ff] text-[#7b65cf]'
+                      : event.tone === 'amber'
+                        ? 'bg-[#fff3da] text-[#c98d28]'
+                        : 'bg-[#fde9ea] text-[#c96f77]'
 
                   return (
-                    <div key={event.title} className="relative flex gap-3">
-                      <span className={`relative z-10 mt-1.5 h-3.5 w-3.5 shrink-0 rounded-full ring-[5px] ring-[#fbf9ff] ${dotClass}`} />
+                    <div key={event.title} className="relative grid grid-cols-[14px_38px_1fr_auto] items-center gap-3">
+                      <span className={`relative z-10 h-3.5 w-3.5 rounded-full ring-[5px] ring-[#fbf9ff] ${dotClass}`} />
 
-                      <div className="min-w-0 flex-1 rounded-[22px] bg-white px-4 py-3 shadow-[0_10px_28px_-26px_rgba(70,52,115,0.42)] ring-1 ring-[#f1ecf6]">
-                        <div className="flex items-start justify-between gap-3">
-                          <p className="text-[13px] font-bold text-[#393449]">{event.title}</p>
-                          <span className="shrink-0 text-[9px] font-medium text-[#a09aa7]">{event.time}</span>
-                        </div>
+                      <div className={`flex h-9 w-9 items-center justify-center rounded-full ${iconClass}`}>
+                        <TimelineIcon tone={event.tone} />
+                      </div>
+
+                      <div className="min-w-0 py-1">
+                        <p className="text-[13px] font-bold leading-4 text-[#393449]">{event.title}</p>
                         <p className="mt-1 text-[11px] leading-4 text-[#7c7685]">{event.detail}</p>
+                      </div>
+
+                      <div className="self-start pt-1 text-right">
+                        <p className="whitespace-nowrap text-[9px] font-medium leading-4 text-[#a09aa7]">{event.time.split(' · ')[0]}</p>
+                        <p className="whitespace-nowrap text-[9px] font-medium leading-4 text-[#b0aab5]">{event.time.split(' · ')[1]}</p>
                       </div>
                     </div>
                   )
                 })}
               </div>
+
+              <button
+                type="button"
+                className="mt-5 flex w-full items-center justify-between rounded-full bg-[linear-gradient(90deg,#7563d6_0%,#5f50be_100%)] px-4 py-3 text-[13px] font-bold text-white shadow-[0_14px_26px_-18px_rgba(95,80,190,0.75)] transition hover:brightness-[0.98]"
+              >
+                <span className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[18px] font-medium leading-none text-[#6653c7]">+</span>
+                  Registrar interacción
+                </span>
+                <span aria-hidden="true" className="text-lg font-light">›</span>
+              </button>
             </div>
           </section>
 
