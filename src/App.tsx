@@ -11,7 +11,6 @@ import Support from './pages/Support'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import LegalConsent from './pages/LegalConsent'
-import AIPreferencePage from './pages/AIPreference'
 import Onboarding from './pages/Onboarding'
 import PrivacyAI from './pages/PrivacyAI'
 import { getNextSetupRoute, hasSession } from './lib/accountStore'
@@ -30,7 +29,7 @@ function App() {
       <Route path="/registro" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/privacidad" element={hasSession() ? <LegalConsent /> : <Navigate to="/login" replace />} />
-      <Route path="/preferencia-ia" element={hasSession() ? <AIPreferencePage /> : <Navigate to="/login" replace />} />
+      <Route path="/preferencia-ia" element={<Navigate to={hasSession() ? getNextSetupRoute() : '/login'} replace />} />
       <Route path="/onboarding" element={hasSession() ? <Onboarding /> : <Navigate to="/login" replace />} />
 
       <Route path="/app" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
